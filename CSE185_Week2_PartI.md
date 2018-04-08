@@ -144,7 +144,7 @@ Finally, **index** the bam file:
 samtools index roommate.bam
 ```
 
-## 5. Look for common variants with VarScan
+## 4. Look for common variants with VarScan
 
 Make an mpileup of the bam alignment file. To save computing power, `samtools` default behavior
 stops piling up the base calls at each position when it gets to 8000 calls. Since our variants may be
@@ -192,7 +192,7 @@ A72G ACA>ACG Thr24Thr synonymous
 
 Repeat with the rest of the variants, record the results, and answer the IClicker question 3).
 
-## 4. Look for rare variants with VarScan
+## 5. Look for rare variants with VarScan
 
 Now try looking for rare variants. Set the min var freq to 0.001 (0.1%) and run the scan again, on the
 same mpileup file. 
