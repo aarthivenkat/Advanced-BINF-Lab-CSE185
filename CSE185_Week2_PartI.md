@@ -157,7 +157,7 @@ samtools mpileup \
     roommate.bam > roommate.mpileup
 ```
 
-Run VarScan on the mpileup. You can use the `VarScan` jar file in the `public/bin` directory. First, look for positions where most of the viruses infecting your roommate differ from the reference. Maybe there is a common mutation that wouldn’t have shown up in the HI test. Use a high minimum variant frequency cut-off to find only those mutants present in most (95% or more = 0.95) of the viral DNA molecules. 
+Run VarScan on the mpileup. You can use the `VarScan` jar file in the `public/tools` directory. First, look for positions where most of the viruses infecting your roommate differ from the reference. Maybe there is a common mutation that wouldn’t have shown up in the HI test. Use a high minimum variant frequency cut-off to find only those mutants present in most (95% or more = 0.95) of the viral DNA molecules. 
 
 ```shell
 java -jar /home/linux/ieng6/cs185s/public/tools/VarScan.jar mpileup2snp \
@@ -182,10 +182,9 @@ cat roommate.vcf | grep -v "^#" | {print $1, $2}' # Note you'll need to edit thi
 What do these mutations do? Could they be what allowed your roommate’s virus to escape the antibodies in your body from the flu vaccine? Since we are only looking at a single gene (and since the VEP doesn’t have a function for viruses) we will do this manually. In a browser, open the free, online sequence editor called WebDSV at
 http://www.molbiotools.com/WebDSV/index.html
 
-Go to NCBI (in a browser) and search for the reference sequence KF848938.1. Click on the FASTA link in the first result, then copy and paste the DNA sequence (not the header) where it says ‘paste sequence here’ on WebDSV. Alternatively you can copy the sequence from the reference fasta file you already downloaded to your directory. Click the yellow "process" button, then click "select all" and "translate". Close the pop up window, and when you get back to WebDSV, you should see the single-letter amino acid code above your sequence in the bottom window.
+Go to NCBI (https://www.ncbi.nlm.nih.gov/nuccore/) and search for the reference sequence KF848938.1. Click on the FASTA link in the first result, then copy and paste the DNA sequence (not the header) where it says ‘paste sequence here’ on WebDSV. Alternatively you can copy the sequence from the reference fasta file you already downloaded to your directory. Click the yellow "process" button, then click "select all" and "translate". Close the pop up window, and when you get back to WebDSV, you should see the single-letter amino acid code above your sequence in the bottom window.
 
-In the right side of the app, click the button with "AA" on it to open a codon table. For each position in your list, find the codon it is a part of. (You can hover over the bases to show the position, and you can hover over the amino acids to show the codon). Use the codon table to translate each mutation, and **record the original codon, mutated codon, original amino acid, its position in the protein, and the mutated amino acid. Then, record
-whether the change is synonymous or missense.**
+In the right side of the app, click the button with "AA" on it to open a codon table. For each position in your list, find the codon it is a part of. (You can hover over the bases to show the position, and you can hover over the amino acids to show the codon). Use the codon table to translate each mutation, and **record the original codon, mutated codon, original amino acid, its position in the protein, and the mutated amino acid. Then, record whether the change is synonymous or missense.**
 
 Example:
 A72G ACA>ACG Thr24Thr synonymous
@@ -205,7 +204,7 @@ java -jar /home/linux/ieng6/cs185s/public/tools/VarScan.jar mpileup2snp \
 ```
 
 How many variants are reported back now, and how abundant are they? Modify the `awk` script again
-to extract the position, reference base, and frequency. The frequency is part of field `$10`, so run the
+to extract the position, reference base, alternative base, and frequency. The frequency is part of field `$10`, so run the
 command below.
 
 ```shell
