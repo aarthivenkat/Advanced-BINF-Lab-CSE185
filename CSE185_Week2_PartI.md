@@ -5,7 +5,7 @@ This year, you prudently got the flu vaccine. So when your roommate, who forgot 
 
 Suspecting that this season’s vaccine wasn’t a match for the flu virus that infected your roommate, you had some friends in the med school run a hemagglutination inhibition (HI) assay on virus samples from your roommate.
 
-The results showed that your roommate’s virus closely matched the HI profile for an H3N2 strain called A/Hong Kong/4801/2014 (H3N2). Was that one of the flu strain’s covered by this season’s (2017/2018) vaccine? Find out what strains were in this season’s vaccine, then answer the IClicker question.
+The results showed that your roommate’s virus closely matched the HI profile for an H3N2 strain called A/Hong Kong/4801/2014 (H3N2). Was that one of the flu strain’s covered by this season’s (2017/2018) vaccine? Find out what strains were in this season’s vaccine, then answer the IClicker question 1).
 
 You’ve heard of viral quasispecies, and suspect that maybe a small portion of the virus population mutated and evolved while replicating inside your roommate’s cells, which could explain how it was able to infect you. To find out, you have your friends set up a targeted deep sequencing experiment to analyze the HA genes in your roommate’s viral sample. They set up an Illumina single-end sequencing run. When they send you the results, you start analyzing your roommate’s sequence right away.
 
@@ -16,12 +16,14 @@ Now, we'll first get set up using Git from the command line. Last week, we edite
 
 Git is a really useful framework for keeping track of changes to files both for yourself or when working with a team of people. It maintains files in a "repository" (aka the main directory, such as "cse185-spring18-week2"). You can update the repository through "commits". Each time you commit to the repository, Git will keep track of exactly what changes were made along with a short message describing the purpose of the changes. It can get infinitely complicated but today we'll go through some basic functionality.
 
-To get started, we will make a "clone" (copy) of your assignment repository in your home directory in `ieng6.ucsd.edu`. Copy the base URL for the your repository (e.g., https://github.com/cse185-sp18/cse185-week2-<username>/). Log into the cluster and navigate to your home directory for the course using `cd`. Clone the repository using the following command:
+To get started, we will make a "clone" (copy) of your assignment repository in your home directory in `ieng6.ucsd.edu`. Copy the base URL for the your repository (e.g., https://github.com/cse185-sp18/cse185-week2-<username>.git). Log into the cluster and navigate to your home directory for the course using `cd`. Clone the repository using the following command:
 ```
-git clone https://github.com/cse185-sp18/cse185-week2-<username/ week2
+git clone https://github.com/cse185-sp18/cse185-week2-<username>.git week2
 ```
 
-This will make a copy of the entire repository in a folder named `week2`. We can now edit and add files to the repository directly from the command line. First, let's go through adding a new file for your lab notebook. You can use your favorite text editor to make a new file, but all examples here will use `emacs` (because of course it is way better than vim, and definitely way cooler than nano. But if you already have a favorite editor then go for it).
+This will make a copy of the entire repository in a folder named `week2`. Navigate to inside the week to directory (`cd week2`).
+
+We can now edit and add files to the repository directly from the command line. First, let's go through adding a new file for your lab notebook. You can use your favorite command line text editor to make a new file, but all examples here will use `emacs` (because of course it is way better than vim, and definitely way cooler than nano. But if you already have a favorite editor then go for it).
 
 ```
 emacs CSE185_Week2_LabNotebook.md
@@ -43,7 +45,7 @@ Finally, to make these changes actually visible in the repository on Github, we 
 ```
 git push
 ```
-This will ask for your Github username and password. After you push, go back to the web browser and see if your changes appear there. You should be able to see (in blue at the top of the list of files) when your last commit was. You can click on that to see exactly what changed.
+This will ask for your *Github username and password*. After you push, go back to the web browser and see if your changes appear there. You should be able to see (in blue at the top of the list of files) when your last commit was. You can click on that to see exactly what changed.
 
 If you ever make changes on the web browser and need to update the clone of your repository on `ieng6.ucsd.edu`, you can "pull" those changes using:
 
@@ -63,7 +65,7 @@ You are encouraged to edit your files on the command line, although we won't kno
 
 This sequencing data can is in the `public/week2` directory. Your roommate’s data is labeled
 `roommate.fastq`. Record how many reads there are in this file, then look at the first 20 lines with the
-head command and answer the IClicker question.
+head command and answer the IClicker question 2).
 
 Reminder - to get from your home directory to the parent cs185s class directory:
 ```shell
@@ -94,7 +96,7 @@ Let's walk through the commands we piped together:
 * `sort` sorts the output lines. The `-n` flag tells it it's dealing with numbers so sort numerically. The next command requires the input to be sorted first.
 * `uniq` returns only unique lengths (many reads are probably the same length), and the `-c` flag gives a count of how many there are of each.
 
-**Record** the maximum read length, then answer the IClicker again. It looks like the reads come in various lengths, which suggests that someone has already processed the data. You check
+**Record** the maximum read length, then answer the IClicker question 2) again. It looks like the reads come in various lengths, which suggests that someone has already processed the data. You check
 with your friends in the med school, and it turns out that yes, they trimmed the low quality bases from
 the ends of the reads for you.
 
@@ -155,7 +157,7 @@ samtools mpileup \
     roommate.bam > roommate.mpileup
 ```
 
-Run VarScan on the mpileup. You can use the `VarScan` jar file in the `public/bin` directory. First, look for positions where most of the viruses infecting your roommate differ from the reference. Maybe there is a common mutation that wouldn’t have shown up in the HI test. Use a high minimum variant frequency cut-off to find only those mutants present in most (95% or more = 0.95) of the viral DNA molecules. 
+Run VarScan on the mpileup. You can use the `VarScan` jar file in the `public/tools` directory. First, look for positions where most of the viruses infecting your roommate differ from the reference. Maybe there is a common mutation that wouldn’t have shown up in the HI test. Use a high minimum variant frequency cut-off to find only those mutants present in most (95% or more = 0.95) of the viral DNA molecules. 
 
 ```shell
 java -jar /home/linux/ieng6/cs185s/public/tools/VarScan.jar mpileup2snp \
@@ -180,15 +182,14 @@ cat roommate.vcf | grep -v "^#" | {print $1, $2}' # Note you'll need to edit thi
 What do these mutations do? Could they be what allowed your roommate’s virus to escape the antibodies in your body from the flu vaccine? Since we are only looking at a single gene (and since the VEP doesn’t have a function for viruses) we will do this manually. In a browser, open the free, online sequence editor called WebDSV at
 http://www.molbiotools.com/WebDSV/index.html
 
-Go to NCBI (in a browser) and search for the reference sequence KF848938.1. Click on the FASTA link in the first result, then copy and paste the DNA sequence (not the header) where it says ‘paste sequence here’ on WebDSV. Alternatively you can copy the sequence from the reference fasta file you already downloaded to your directory. Click the yellow "process" button, then click "select all" and "translate". Close the pop up window, and when you get back to WebDSV, you should see the single-letter amino acid code above your sequence in the bottom window.
+Go to NCBI (https://www.ncbi.nlm.nih.gov/nuccore/) and search for the reference sequence KF848938.1. Click on the FASTA link in the first result, then copy and paste the DNA sequence (not the header) where it says ‘paste sequence here’ on WebDSV. Alternatively you can copy the sequence from the reference fasta file you already downloaded to your directory. Click the yellow "process" button, then click "select all" and "translate". Close the pop up window, and when you get back to WebDSV, you should see the single-letter amino acid code above your sequence in the bottom window.
 
-In the right side of the app, click the button with "AA" on it to open a codon table. For each position in your list, find the codon it is a part of. (You can hover over the bases to show the position, and you can hover over the amino acids to show the codon). Use the codon table to translate each mutation, and **record the original codon, mutated codon, original amino acid, its position in the protein, and the mutated amino acid. Then, record
-whether the change is synonymous or missense.**
+In the right side of the app, click the button with "AA" on it to open a codon table. For each position in your list, find the codon it is a part of. (You can hover over the bases to show the position, and you can hover over the amino acids to show the codon). Use the codon table to translate each mutation, and **record the original codon, mutated codon, original amino acid, its position in the protein, and the mutated amino acid. Then, record whether the change is synonymous or missense.**
 
 Example:
 A72G ACA>ACG Thr24Thr synonymous
 
-Repeat with the rest of the variants, record the results, and answer the IClicker question.
+Repeat with the rest of the variants, record the results, and answer the IClicker question 3).
 
 ## 5. Look for rare variants with VarScan
 
@@ -203,7 +204,7 @@ java -jar /home/linux/ieng6/cs185s/public/tools/VarScan.jar mpileup2snp \
 ```
 
 How many variants are reported back now, and how abundant are they? Modify the `awk` script again
-to extract the position, reference base, and frequency. The frequency is part of field `$10`, so run the
+to extract the position, reference base, alternative base, and frequency. The frequency is part of field `$10`, so run the
 command below.
 
 ```shell
