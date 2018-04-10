@@ -1,4 +1,4 @@
-# Why did I get the flu?
+# Why did I get the flu? (PART ONE)
 #### Name: Aarthi Venkat
 #### Date: Apr 10 2018
 
@@ -45,7 +45,8 @@ roommate.fastq contains reads of multiple lengths, and the reads are not sorted 
      24 37  
      36 38  
      30 39  
-     37 40  
+     37 40
+     ...  
    3152 146  
   13708 147  
    5400 148  
@@ -95,7 +96,7 @@ We are interested in files 2,4 and 5 in the VCF file (excluding the header), so 
 
 It is clear now that the following 7 variants reported back.  
 
-Reference Base | Position | Mutant Base
+Reference Base | Position | Mutant Base  
 ---|---|---
 A|72|G
 C|117|T
@@ -111,7 +112,7 @@ We are interested in finding how the codons and amino acids changed with the mut
 For each variant, we want to record the original codon, mutated codon, original AA, position in protein, mutated AA, and whether the change is synonymous or missense.  
 
 Variant | Original Codon > Mutated Codon | Original AA + Position in Protein + Mutated AA | Type of Change
----|---|---|---|---|---|---
+---|---|---|---
 A72G | ACA > ACG| Thr24Thr | synonymous
 C117T | GCC > GCT | Ala39Ala | synonymous
 G595T | GCA > TCA | Ala199Ser | missense
@@ -119,11 +120,6 @@ T774C | TTT > TTC | Phe258Phe | synonymous
 T1008G | GCT > GCG | Ala336Ala | synonymous
 A1260C | CTA > CTC | Leu420Leu | synonymous
 T1339C | TTG > CTG | Leu447Leu | synonymous
-
-
-Citations:  
-http://www.molbiotools.com/WebDSV/index.html  
-https://www.ncbi.nlm.nih.gov/nuccore/KF848938.1?report=fasta  
 
 **How many common missense viariants did you find in the sample from your roommate? (iClicker)** 
 Of the six variants, I found one missense variant.  
@@ -148,34 +144,38 @@ Evidently, the frequency 8 is buried in the last field. So, we pipe this output 
 
 The results of this command are as follows:  
 
-38 T C 0.45%
-72 A G 99.97%
-117 C T 99.91%
-216 A G 0.18%
-218 A G 0.2%
-254 A G 0.28%
-276 A G 0.37%
-295 C T 0.23%
-319 T C 0.22%
-409 T C 0.26%
-495 C T 1.04%
-524 A G 0.19%
-595 G T 99.94%
-691 A G 0.17%
-722 A G 0.19%
-774 T C 99.96%
-910 G A 0.73%
-915 T C 0.27%
-987 A G 0.25%
-1008 T G 99.9%
-1043 A T 0.19%
-1086 A G 0.26%
-1100 T C 0.2%
-1260 A C 99.9%
-1293 G A 61.82%
-1339 T C 99.97%
-1460 A G 0.23%
-1473 C T 0.23%
-1517 A G 0.22%
-1521 G A 1.12%
-1604 T C 0.25%
+38 T C 0.45%  
+72 A G 99.97%  
+117 C T 99.91%  
+216 A G 0.18%  
+218 A G 0.2%  
+254 A G 0.28%  
+276 A G 0.37%  
+295 C T 0.23%  
+319 T C 0.22%  
+409 T C 0.26%  
+495 C T 1.04%  
+524 A G 0.19%  
+595 G T 99.94%  
+691 A G 0.17%  
+722 A G 0.19%  
+774 T C 99.96%  
+910 G A 0.73%  
+915 T C 0.27%  
+987 A G 0.25%  
+1008 T G 99.9%  
+1043 A T 0.19%  
+1086 A G 0.26%  
+1100 T C 0.2%  
+1260 A C 99.9%  
+1293 G A 61.82%  
+1339 T C 99.97%  
+1460 A G 0.23%  
+1473 C T 0.23%  
+1517 A G 0.22%  
+1521 G A 1.12%  
+1604 T C 0.25%  
+
+## 5. References 
+http://www.molbiotools.com/WebDSV/index.html  
+https://www.ncbi.nlm.nih.gov/nuccore/KF848938.1?report=fasta  
