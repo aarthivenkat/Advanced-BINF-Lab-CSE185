@@ -1,3 +1,163 @@
 # Why did I get the flu?
-### Name: Aarthi Venkat
-### Date: Apr 10 2018
+#### Name: Aarthi Venkat
+#### Date: Apr 10 2018
+
+Your roommate has a virus with a profile closely matching A/Hong Kong/4801/2014 (H3N2). This flu strain was covered in this season vaccine. Thus, because I got my flu vaccine, I posit that a small portion of the virus population mutated and evolved while replicating inside my roommate. We perform a single-end sequencing run to analyze my roommate's sequence.
+
+## 1. Inspecting the data from your roommate  
+
+**How many reads are in roommate.fastq? (iClicker)**  
+`wc -l roommate.fastq` gives us the linecount of the file. 
+
+1146956 roommate.fastq  
+
+Because fastq files have 4 lines per read, there are 286739 reads.  
+
+**Look at the first 20 lines and answer (iClicker)**  
+`head -n 20 roommate.fastq`  
+
+@SRR1705889.1 1 length=151
+TATTAACCATGAAGACTATCATTGCTTTGAGCTACATTCTATGTCTGGTTTTCGCTCAAAAACTTCCTGGAAATGACAACAGCACGGCAACGCTGTGCCTTGGGCACCATGCAGTGCCAAACGGAGCGATAGTGAAAACAATCACGAATGA
++SRR1705889.1 1 length=151
+?????BBBDDDDDDDDGGGGGGIIIHHIFFFHHHHHHIIHIIIFHHGHDFFHGAEHHHIHIIHHHHHIHFHIHIBFHHIHFFHFHHBE>DHHHHDHHHHCDFF;ADEHDFFHHG?BBBFDFFDDEGGB6AC?A>ACGACEE-CEEE8CCEC
+@SRR1705889.2 2 length=151
+TATTAACCATGAAGACTATCATTGCTTTGAGCTACATTCTATGTCTGGTTTTCGCTCAAAAACTTCCTGGAAATGACAACAGCACGGCAACGCTGTGCCTTGGGCACCATGCAGTGCCAAACGGAACGATAGTGAAAACAATCACGAATGA
++SRR1705889.2 2 length=151
+????ABBBDDDDDDDDGGGGGGIIHHIIIIIIIHHHIIIIIIIIIIIIGHHIHHHHIHHGHFHIIIIIIGHIIIIIIIIIIIIIIHHHHHIHHHHHHHHHHHHHHHHHHHHHHGFGGGFFGGGGGGGGGGGGACCEGGGGGGEGGGCGGG?
+@SRR1705889.3 3 length=131
+ATCGTTCCGTTTGGCACTGCATGGTGCCCAAGGCACAGCGTTGCCGTGCTGTTGTCATTTCCAGGAAGTTTTTGAGCGAAAACCAGACATAGAATGTAGCTCAAAGCAATGATAGTCTTCATGGTTAATAG
++SRR1705889.3 3 length=131
+??????BBDDDDDDDDGGGGGGIIFHIIIIIIIIIIIIIHHHHHIHEEHIIHHIIIIIIIIIIHIFHHHIIIIHHIIHHHHHHHHHHHHHHHHHHHHHHHHHHHHHGGGGGGGGGGGGGGGGGGDEGGGGG
+@SRR1705889.4 4 length=131
+ATCGTTCCGTTTGGCACTGCATGGTGCCCAAGGCACAGCGTTGCCGTGCTGTTGTCATTTCCAGGAAGTTTTTGAGCGAAAACCAGACATAGAATGTAGCTCAAAGCAATGATAGTCTTCATGGTTAATAG
++SRR1705889.4 4 length=131
+??????BBDDDDEEEEGGGGGGIIFHIIIIIIIGIIIIHEHHHHIHHHHHHHHHHHIIIIIIIIIHHIGHHIIHHIIHHHHHHHHHHHHHHHHHHHHFHHHHFHHHGFGGGGGGGDDEGGGEGGEGGEEGG
+@SRR1705889.5 5 length=108
+GTGCCCAAGGCACAGCGTTGCCGTGCTGTTGTCATTTCCAGGAAGTTTTTGAGCGAAAACCAGACATAGAATGTAGCTCAAAGCAATGATAGTCTTCATGGTTAATAG
++SRR1705889.5 5 length=108
+?????BB?BB9BBBBBC@CA>CCEE>E;EFF7CGDCFAA9CEAFFEEEFHC>EDEHHHC=>+AEFFHHFGGHHDGHHHGHHHH?DDD=DGHFHHF.7D@C..7CD,C,
+
+roommate.fastq contains reads of multiple lengths, so we run the following command to sorted unique read lengths (col2) and the count of each read length (col1).  
+
+`cat roommate.fastq | awk 'NR%4==0 {print length}' | sort -n | uniq -c`  
+
+     74 35
+     16 36
+     24 37
+     36 38
+     30 39
+     37 40
+     33 41
+     26 42
+     40 43
+     42 44
+     30 45
+     52 46
+     38 47
+     51 48
+     46 49
+     50 50
+     48 51
+     57 52
+     46 53
+     66 54
+     55 55
+     55 56
+     51 57
+     43 58
+     53 59
+     62 60
+     51 61
+     67 62
+     64 63
+     61 64
+     43 65
+     55 66
+     66 67
+     66 68
+     57 69
+     57 70
+     68 71
+     62 72
+     70 73
+     54 74
+     60 75
+     70 76
+     57 77
+     83 78
+     82 79
+     86 80
+     73 81
+     95 82
+     78 83
+     86 84
+     81 85
+     67 86
+     87 87
+     72 88
+    106 89
+    109 90
+    111 91
+     95 92
+     93 93
+    110 94
+    133 95
+    101 96
+    107 97
+     86 98
+    137 99
+    117 100
+    138 101
+    123 102
+    121 103
+    125 104
+    111 105
+    111 106
+    157 107
+    115 108
+    116 109
+    107 110
+    126 111
+    142 112
+    116 113
+    106 114
+    123 115
+    129 116
+    163 117
+    164 118
+    128 119
+    152 120
+    179 121
+    174 122
+    142 123
+    149 124
+    136 125
+    175 126
+    179 127
+    160 128
+    172 129
+    209 130
+    161 131
+    191 132
+    166 133
+    216 134
+    166 135
+    167 136
+    190 137
+    221 138
+    269 139
+    295 140
+   1139 141
+    294 142
+    865 143
+   2911 144
+    620 145
+   3152 146
+  13708 147
+   5400 148
+  15570 149
+  45169 150
+ 187237 151
+
+
+So, the maximum read length is 151 bp. **Answer iClicker again**  
