@@ -53,7 +53,7 @@ roommate.fastq contains reads of multiple lengths, and the reads are not sorted 
   45169 150  
  187237 151  
 
-So, the maximum read length is 151 bp, and we can confidently say that the number of cycles carried out during the sequencing run is 151.  
+So, the maximum read length is 151 bp, so unless every read was trimmed, it is likely that the number of cycles carried out during the sequencing run is 151.  
 
 ## 2. Alignment of roommate data to reference sequence  
 
@@ -78,4 +78,104 @@ We finally index the bam file using samtools index.
 
 `samtools index roommate.bam`  
 
+## 3. Look for common variants with VarScan  
 
+We know want to make an mpileup of the bam alignment file using samtools. The default depth limit is 8000 calls, but because are looking into rare variants, we are increasing the depth limit to 1000000.  
+
+`samtools mpileup -d 1000000 -f KF848938.1.fasta roommate.bam > roommate.mpileup`  
+
+Now we can run VarScan on mpileup. We initially set a high minimum variant frequency cut-off so we look only at common mutants (those present in 95% of viral DNA molecules).  
+
+`java -jar /home/linux/ieng6/cs185s/public/tools/VarScan.jar mpileup2snp roommate.mpileup --min-var-freq 0.95 --variants --output-vcf 1 > roommate.vcf`  
+
+
+We are interested in files 2,4 and 5 in the VCF file (excluding the header), so we output only these fields using the following script:  
+
+`cat roommate.vcf | grep -v "^#" | awk '{print $2, $4, $5}'`  
+
+It is clear now that the following 7 variants reported back.  
+
+Reference Base | Position | Mutant Base
+---|---|---
+A|72|G
+C|117|T
+G|595|T
+T|774|C
+T|1008|G
+A|1260|C
+T|1339|C
+
+
+We are interested in finding how the codons and amino acids changed with the mutation, so we copy the reference FASTA sequence into online sequence editor WebDSV.  
+
+For each variant, we want to record the original codon, mutated codon, original AA, position in protein, mutated AA, and whether the change is synonymous or missense.  
+
+Variant | Original Codon > Mutated Codon | Original AA + Position in Protein + Mutated AA | Type of Change
+---|---|---|---|---|---|---
+A72G | ACA > ACG| Thr24Thr | synonymous
+C117T | GCC > GCT | Ala39Ala | synonymous
+G595T | GCA > TCA | Ala199Ser | missense
+T774C | TTT > TTC | Phe258Phe | synonymous
+T1008G | GCT > GCG | Ala336Ala | synonymous
+A1260C | CTA > CTC | Leu420Leu | synonymous
+T1339C | TTG > CTG | Leu447Leu | synonymous
+
+
+Citations:  
+http://www.molbiotools.com/WebDSV/index.html  
+https://www.ncbi.nlm.nih.gov/nuccore/KF848938.1?report=fasta  
+
+**How many common missense viariants did you find in the sample from your roommate? (iClicker)** 
+Of the six variants, I found one missense variant.  
+
+## 4. Look for rare variants with VarScan  
+
+Now, we repeat our analysis of the mpileup file, but we set the minimum var frequency to 0.1% to search for rare variants.  
+
+`java -jar /home/linux/ieng6/cs185s/public/tools/VarScan.jar mpileup2snp roommate.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > roommate_rare.vcf`  
+
+We want to look at the VCF file to understand the frequency of each of the variants.  
+`cat roommate_rare.vcf | grep -v "^#" | awk '{print $2, $4, $5, $10}'`  
+
+38 T C 0/1:22:3113:3111:3097:14:0.45%:6.3047E-3:35:31:2268:829:12:2  
+72 A G 1/1:255:9835:9820:2:9817:99.97%:0E0:31:36:2:0:6811:3006  
+117 C T 1/1:255:13852:13732:12:13719:99.91%:0E0:33:37:8:4:9670:4049  
+...
+
+Evidently, the frequency 8 is buried in the last field. So, we pipe this output into more awk command to process the output futher.  
+
+`cat roommate_rare.vcf | grep -v "^#" | awk '{print $2, $4, $5, $10}' | awk -F '[ :]' '{print $1, $2, $3, $10}'`  
+
+The results of this command are as follows:  
+
+38 T C 0.45%
+72 A G 99.97%
+117 C T 99.91%
+216 A G 0.18%
+218 A G 0.2%
+254 A G 0.28%
+276 A G 0.37%
+295 C T 0.23%
+319 T C 0.22%
+409 T C 0.26%
+495 C T 1.04%
+524 A G 0.19%
+595 G T 99.94%
+691 A G 0.17%
+722 A G 0.19%
+774 T C 99.96%
+910 G A 0.73%
+915 T C 0.27%
+987 A G 0.25%
+1008 T G 99.9%
+1043 A T 0.19%
+1086 A G 0.26%
+1100 T C 0.2%
+1260 A C 99.9%
+1293 G A 61.82%
+1339 T C 99.97%
+1460 A G 0.23%
+1473 C T 0.23%
+1517 A G 0.22%
+1521 G A 1.12%
+1604 T C 0.25%
