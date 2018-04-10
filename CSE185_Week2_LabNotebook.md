@@ -176,6 +176,12 @@ The results of this command are as follows:
 1521 G A 1.12%  
 1604 T C 0.25%  
 
+In order to determine which are rare variants and which are sequencing errors, we perform control experiments with three samples.  
+
+SRR1705858.fastq    256586 reads
+SRR1705859.fastq    233327 reads
+SRR1705860.fastq    249964 reads
+
 ## 5. References 
 https://www.cdc.gov/flu/about/season/flu-season-2017-2018.htm  
 http://www.molbiotools.com/WebDSV/index.html  
