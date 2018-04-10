@@ -1,4 +1,4 @@
-# Why did I get the flu? (PART ONE)
+# Why did I get the flu?
 #### Name: Aarthi Venkat
 #### Date: Apr 10 2018
 
@@ -177,5 +177,8 @@ The results of this command are as follows:
 1604 T C 0.25%  
 
 ## 5. References 
+https://www.cdc.gov/flu/about/season/flu-season-2017-2018.htm  
 http://www.molbiotools.com/WebDSV/index.html  
 https://www.ncbi.nlm.nih.gov/nuccore/KF848938.1?report=fasta  
+[BWA](http://bio-bwa.sourceforge.net/)
+[SamTools](http://samtools.sourceforge.net/)
