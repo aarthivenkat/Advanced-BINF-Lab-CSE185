@@ -13,7 +13,7 @@ Your roommate has a virus with a profile closely matching A/Hong Kong/4801/2014 
 
 Because fastq files have 4 lines per read, there are 286739 reads.  
 
-**Look at the first 20 lines and answer (iClicker)**  
+**Based on the first 20 lines of the fastq file, how many cycles were probably carried out during the sequencing run? (iClicker)**  
 `head -n 20 roommate.fastq`  
 
 @SRR1705889.1 1 length=151
@@ -35,19 +35,17 @@ ATCGTTCCGTTTGGCACTGCATGGTGCCCAAGGCACAGCGTTGCCGTGCTGTTGTCATTTCCAGGAAGTTTTTGAGCGAA
 @SRR1705889.5 5 length=108
 GTGCCCAAGGCACAGCGTTGCCGTGCTGTTGTCATTTCCAGGAAGTTTTTGAGCGAAAACCAGACATAGAATGTAGCTCAAAGCAATGATAGTCTTCATGGTTAATAG
 +SRR1705889.5 5 length=108
-?????BB?BB9BBBBBC@CA>CCEE>E;EFF7CGDCFAA9CEAFFEEEFHC>EDEHHHC=>+AEFFHHFGGHHDGHHHGHHHH?DDD=DGHFHHF.7D@C..7CD,C,
+?????BB?BB9BBBBBC@CA>CCEE>E;EFF7CGDCFAA9CEAFFEEEFHC>EDEHHHC=>+AEFFHHFGGHHDGHHHGHHHH?DDD=DGHFHHF.7D@C..7CD,C,  
 
-roommate.fastq contains reads of multiple lengths, so we run the following command to sorted unique read lengths (col2) and the count of each read length (col1).  
+roommate.fastq contains reads of multiple lengths, and the reads are not sorted by length in any definitive way, so it is currently impossible to tell for certain how many cycles were carried out. To determine the number of cycles, we run the following command to sorted unique read lengths (col2) and the count of each read length (col1).  
 
 `cat roommate.fastq | awk 'NR%4==0 {print length}' | sort -n | uniq -c`  
-
      74 35  
      16 36  
      24 37  
      36 38  
      30 39  
      37 40  
-     ...
    3152 146  
   13708 147  
    5400 148  
@@ -55,7 +53,7 @@ roommate.fastq contains reads of multiple lengths, so we run the following comma
   45169 150  
  187237 151  
 
-So, the maximum read length is 151 bp. **Answer iClicker again.**  
+So, the maximum read length is 151 bp, and we can confidently say that the number of cycles carried out during the sequencing run is 151.  
 
 ## 2. Alignment of roommate data to reference sequence  
 
