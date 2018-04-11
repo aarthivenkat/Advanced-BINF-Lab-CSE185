@@ -412,6 +412,8 @@ Yes. Using the excel spreadsheet with the controls and roommate variants (exclud
 
 `=IF(FREQ>(0.256%+(3*0.0717%)),">3std",IF(FREQ>(0.237%+(3*0.0524%)),">3std",IF(FREQ>(0.25%+(3*0.078%)),">3std","<3std")))`  
 
+**Question: should we check if 3std > than ALL averages, or AT LEAST ONE of averages? Or do we average the averages/std?**  
+
 Where FREQ refers to the variant allele frequency for each rare variant. VarScan reported the following variants as >3std from any one of the averages of the reference files.  
 
 Position|RefAllele|AltAllele|VariantAlleleFreq  
@@ -425,13 +427,63 @@ Position|RefAllele|AltAllele|VariantAlleleFreq
 We'll turn again to WebDSV to understand how the amino acids change for these variants. We want to record the original codon, mutated codon, original amino acid, its position in the protein, and the mutated amino acid. Then, record whether the change is synonymous or missense. Example: A72G ACA>ACG Thr24Thr synonymous.  
 
 Variant|Codon Change|AA Change/Position|Mutation Type  
+---|---|---|---  
 T38C|CTG>CCG|Leu13Pro|missense  
 C495T|AAC>AAT|Asn165Asn|synonymous  
 G910A|GCC>ACC|Ala304Thr|missense
 G1293A|CTG>CTA|Leu431Leu|synonymous
 G1521A|CTG>CTA|Leu507Leu|synonymous  
 
-## 6. References 
+**Discussion question: Are there any positions reported by VarScan in all 3 of the reference sequences? You could, in principle, also calculate the average and standard deviation between the 3 reference replicates for one position at a time. Which kind of average and standard deviation do you think is better for error correction?**  
+
+The following positions are reported by VarScan for all 3 of the reference sequences. Because this list contains positions that consistently poorly sequenced, it may be wiser for error correction to compute the average and standard deviation of variant allele frequency at only these positions.   
+165
+183
+216
+218
+222
+254
+276
+340
+356
+370
+409
+414
+421
+463
+660
+670
+691
+722
+744
+859
+915
+987
+1031
+1056
+1086
+1213
+1264
+1280
+1358
+1398
+1421
+1460
+1482  
+
+## 6. Epitope Mapping
+
+**Use the epitope locations listed in Munoz et al (listed under reading for the lab) to determine if any of the high confidence (> 3 std deviations away from reference error rate) mutations from your roommate’s flu infection are located in an epitope region of hemeagglutinin. (Epitopes are the parts of the protein structure recognized by antibodies). If so, list which epitope regions are mutated**  
+
+**QUESTION. Is this correct?**  
+
+The residues from my roommate's flu infection are 13, 165, 304, 431, and 507.  
+Residues 13, 431 and 507 are **not** located in an epitope region.  
+Reside 165 is located in **Epitope B** of hemeagglutinin.  
+Reside 304 is located in **Epitope C** of hemeaglutinin.  
+
+
+## 7. References 
 [Flu Strains 2017](https://www.cdc.gov/flu/about/season/flu-season-2017-2018.htm)  
 [KF848938.1 FASTA](https://www.ncbi.nlm.nih.gov/nuccore/KF848938.1?report=fasta)  
 [BWA](http://bio-bwa.sourceforge.net/)  
