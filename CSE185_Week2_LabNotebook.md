@@ -395,12 +395,38 @@ done
 1460 A G 0.26%      
 1482 A G 0.23%      
 1580 T C 0.27%      
-1604 T C 0.3%       
+1604 T C 0.3%      
 
-## 5. References 
-https://www.cdc.gov/flu/about/season/flu-season-2017-2018.htm  
-http://www.molbiotools.com/WebDSV/index.html  
-https://www.ncbi.nlm.nih.gov/nuccore/KF848938.1?report=fasta  
+## 5. Compare the control results to your roommate's results    
+Control|AvgFreq|StdevFreq  
+--|--|--  
+SRR1705858|0.256%|0.0717%  
+SRR1705859|0.237%|0.0524%  
+SRR1705860|0.250%|0.0780%  
+
+**iClicker**  
+
+Did VarScan report rare mutations in your roommate's file with frequencies that are more than 3 standard deviations from the averages in the reference files?**  
+
+Yes. Using the excel spreadsheet with the controls and roommate variants (excluding common variants with frequency >95%), I wrote the nested if statement  
+
+`=IF(FREQ>(0.256%+(3*0.0717%)),">3std",IF(FREQ>(0.237%+(3*0.0524%)),">3std",IF(FREQ>(0.25%+(3*0.078%)),">3std","<3std")))`  
+
+Where FREQ refers to the variant allele frequency for each rare variant. VarScan reported the following variants as >3std from any one of the averages of the reference files.  
+
+Position|RefAllele|AltAllele|VariantAlleleFreq  
+---|---|---|---  
+38|T|C|0.45%  
+495|C|T|1.04%  
+910|G|A|0.73%  
+1293|G|A|61.82%
+1521|G|A|1.12%  
+
+
+## 6. References 
+[Flu Strains 2017](https://www.cdc.gov/flu/about/season/flu-season-2017-2018.htm)  
+[KF848938.1 FASTA](https://www.ncbi.nlm.nih.gov/nuccore/KF848938.1?report=fasta)  
 [BWA](http://bio-bwa.sourceforge.net/)  
 [SamTools](http://samtools.sourceforge.net/)  
 [VarScan](http://varscan.sourceforge.net/)  
+[WebDSV](http://www.molbiotools.com/WebDSV/)
