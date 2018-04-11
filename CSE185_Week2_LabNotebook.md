@@ -176,11 +176,231 @@ The results of this command are as follows:
 1521 G A 1.12%  
 1604 T C 0.25%  
 
-In order to determine which are rare variants and which are sequencing errors, we perform control experiments with three samples.  
+In order to determine which are rare variants and which are sequencing errors, we perform control experiments with three samples. 
+
+For each fastq file f, we `wc -l f` and divide the result by 4.  
 
 SRR1705858.fastq    256586 reads
 SRR1705859.fastq    233327 reads
-SRR1705860.fastq    249964 reads
+SRR1705860.fastq    249964 reads  
+
+We should calculate a rough estimate of the coverage. Coverage is the total number of base pairs read in the FASTQ files divided by the total number of base pairs in the reference sequence.  
+
+`wc -l KF848938.1.fasta`  
+25
+
+25 - 2 (header and last line) = 23 * 70 + 55 (last line)  
+
+**???** (249964 reads * 151 bp/read) / (23*70 + 55 bp) = 22669x coverage  
+
+To align the control fastq files to the reference and create the mpileup file for VarScan,   
+
+```
+for x in SRR1705858 SRR1705859 SRR1705860
+do
+  echo "Aligning $x"
+  bwa mem KF848938.1.fasta /home/linux/ieng6/cs185s/public/week2/$x.fastq | samtools view -S -b | samtools sort > $x.bam
+  samtools index $x.bam
+  samtools mpileup -d 1000000 -f KF848938.1.fasta $x.bam > $x.mpileup`
+done
+```  
+
+Next, we run VarScan with minimum variant frequency 0.1%, only outputting variants and formatting in VCF.  
+
+```
+for x in SRR1705858 SRR1705859 SRR1705860
+do
+  echo "VarScan on $x"
+  java -jar /home/linux/ieng6/cs185s/public/tools/VarScan.jar mpileup2snp $x.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > $x.vcf
+done
+```  
+
+To parse the VCF file and get the pos, refbase, altbase, and freq,  
+```
+for x in SRR1705858 SRR1705859 SRR1705860
+do  
+  echo "Parsing $x"
+  cat $x.vcf | grep -v "^#" | awk '{print $2, $4, $5, $10}' | awk -F '[ :]' '{print $1, $2, $3, $10}'
+done
+```
+
+### SRR1705858 VARIANTS  
+
+38 T C 0.66%
+54 T C 0.3%
+72 A G 0.3%
+95 A G 0.24%
+117 C T 0.3%
+165 T C 0.24%
+183 A G 0.3%
+216 A G 0.22%
+218 A G 0.28%
+222 T C 0.26%
+235 T C 0.25%
+254 A G 0.25%
+276 A G 0.22%
+297 T C 0.2%
+328 T C 0.2%
+340 T C 0.23%
+356 A G 0.22%
+370 A G 0.21%
+389 T C 0.23%
+409 T C 0.22%
+414 T C 0.28%
+421 A G 0.18%
+426 A G 0.19%
+463 A G 0.19%
+516 A G 0.2%
+566 A G 0.22%
+595 G T 0.34%
+597 A G 0.17%
+660 A G 0.2%
+670 A G 0.29%
+691 A G 0.23%
+722 A G 0.23%
+744 A G 0.21%
+774 T C 0.3%
+859 A G 0.27%
+915 T C 0.26%
+987 A G 0.22%
+1008 T G 0.27%
+1031 A G 0.28%
+1043 A G 0.24%
+1056 T C 0.2%
+1086 A G 0.33%
+1089 A G 0.22%
+1213 A G 0.24%
+1260 A C 0.3%
+1264 T C 0.26%
+1280 T C 0.25%
+1281 T C 0.22%
+1286 T C 0.2%
+1339 T C 0.41%
+1358 A G 0.26%
+1398 T C 0.2%
+1421 A G 0.31%
+1460 A G 0.34%
+1482 A G 0.24%
+1580 T C 0.25%
+1591 T C 0.29%
+
+### SRR1705859 VARIANTS  
+44 T C 0.47%
+158 A G 0.24%
+165 T C 0.27%
+183 A G 0.22%
+193 A G 0.22%
+216 A G 0.24%
+218 A G 0.29%
+222 T C 0.25%
+254 A G 0.19%
+276 A G 0.24%
+319 T C 0.23%
+340 T C 0.21%
+356 A G 0.24%
+370 A G 0.21%
+398 A G 0.22%
+403 A G 0.19%
+409 T C 0.19%
+414 T C 0.22%
+421 A G 0.18%
+463 A G 0.19%
+499 A G 0.21%
+516 A G 0.2%
+548 A G 0.19%
+591 A G 0.19%
+607 A G 0.18%
+660 A G 0.27%
+670 A G 0.28%
+691 A G 0.23%
+722 A G 0.23%
+744 A G 0.25%
+793 A G 0.17%
+859 A G 0.29%
+898 A G 0.2%
+915 T C 0.21%
+987 A G 0.22%
+1031 A G 0.28%
+1056 T C 0.19%
+1086 A G 0.21%
+1100 T C 0.21%
+1213 A G 0.22%
+1264 T C 0.21%
+1280 T C 0.24%
+1358 A G 0.25%
+1366 A G 0.22%
+1398 T C 0.23%
+1421 A G 0.24%
+1460 A G 0.37%
+1482 A G 0.25%
+1517 A G 0.24%
+1520 T C 0.27%
+1600 T C 0.35%
+1604 T C 0.31%
+
+### SRR1705860 VARIANTS  
+38 T C 0.7%
+44 T C 0.5%
+95 A G 0.24%
+105 A G 0.25%
+133 A G 0.22%
+158 A G 0.26%
+165 T C 0.25%
+183 A G 0.23%
+199 A G 0.19%
+216 A G 0.24%
+218 A G 0.23%
+222 T C 0.3%
+228 T C 0.19%
+230 A G 0.19%
+235 T C 0.25%
+254 A G 0.23%
+271 A G 0.21%
+276 A G 0.33%
+297 T C 0.23%
+319 T C 0.21%
+340 T C 0.21%
+356 A G 0.21%
+370 A G 0.22%
+389 T C 0.2%
+409 T C 0.19%
+414 T C 0.3%
+421 A G 0.21%
+463 A G 0.2%
+499 A G 0.19%
+566 A G 0.24%
+597 A G 0.18%
+607 A G 0.2%
+660 A G 0.28%
+670 A G 0.33%
+691 A G 0.23%
+722 A G 0.25%
+744 A G 0.22%
+759 T C 0.19%
+859 A G 0.25%
+915 T C 0.27%
+987 A G 0.22%
+1031 A G 0.26%
+1043 A G 0.21%
+1056 T C 0.2%
+1086 A G 0.3%
+1089 A G 0.22%
+1105 A G 0.22%
+1209 A G 0.27%
+1213 A G 0.24%
+1264 T C 0.27%
+1280 T C 0.25%
+1281 T C 0.21%
+1301 A G 0.22%
+1358 A G 0.29%
+1366 A G 0.21%
+1398 T C 0.23%
+1421 A G 0.37%
+1460 A G 0.26%
+1482 A G 0.23%
+1580 T C 0.27%
+1604 T C 0.3%
+
 
 ## 5. References 
 https://www.cdc.gov/flu/about/season/flu-season-2017-2018.htm  
