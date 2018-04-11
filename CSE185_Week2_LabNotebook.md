@@ -406,7 +406,7 @@ SRR1705860|0.250%|0.0780%
 
 **iClicker**  
 
-Did VarScan report rare mutations in your roommate's file with frequencies that are more than 3 standard deviations from the averages in the reference files?**  
+Did VarScan report rare mutations in your roommate's file with frequencies that are more than 3 standard deviations from the averages in the reference files?  
 
 Yes. Using the excel spreadsheet with the controls and roommate variants (excluding common variants with frequency >95%), I wrote the nested if statement  
 
@@ -422,6 +422,14 @@ Position|RefAllele|AltAllele|VariantAlleleFreq
 1293|G|A|61.82%
 1521|G|A|1.12%  
 
+We'll turn again to WebDSV to understand how the amino acids change for these variants. We want to record the original codon, mutated codon, original amino acid, its position in the protein, and the mutated amino acid. Then, record whether the change is synonymous or missense. Example: A72G ACA>ACG Thr24Thr synonymous.  
+
+Variant|Codon Change|AA Change/Position|Mutation Type  
+T38C|CTG>CCG|Leu13Pro|missense  
+C495T|AAC>AAT|Asn165Asn|synonymous  
+G910A|GCC>ACC|Ala304Thr|missense
+G1293A|CTG>CTA|Leu431Leu|synonymous
+G1521A|CTG>CTA|Leu507Leu|synonymous  
 
 ## 6. References 
 [Flu Strains 2017](https://www.cdc.gov/flu/about/season/flu-season-2017-2018.htm)  
