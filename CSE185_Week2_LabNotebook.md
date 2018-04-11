@@ -189,7 +189,7 @@ We should calculate a rough estimate of the coverage. Coverage is the total numb
 25  
 25 - 2 (header and last line) = 23 * 70 + 55 (last line)  
 
-**???** (249964 reads * 151 bp/read) / (23*70 + 55 bp) = 22669x coverage  
+**QUESTION (249964 reads * 151 bp/read) / (23*70 + 55 bp) = 22669x coverage**  
 
 #### To align the control fastq files to the reference and create the mpileup file for VarScan,   
 ```
@@ -404,7 +404,7 @@ SRR1705858|0.256%|0.0717%
 SRR1705859|0.237%|0.0524%  
 SRR1705860|0.250%|0.0780%  
 
-**iClicker**  
+**QUESTION iClicker**  
 
 Did VarScan report rare mutations in your roommate's file with frequencies that are more than 3 standard deviations from the averages in the reference files?  
 
@@ -412,7 +412,7 @@ Yes. Using the excel spreadsheet with the controls and roommate variants (exclud
 
 `=IF(FREQ>(0.256%+(3*0.0717%)),">3std",IF(FREQ>(0.237%+(3*0.0524%)),">3std",IF(FREQ>(0.25%+(3*0.078%)),">3std","<3std")))`  
 
-**Question: should we check if 3std > than ALL averages, or AT LEAST ONE of averages? Or do we average the averages/std?**  
+**QUESTION should we check if 3std > than ALL averages, or AT LEAST ONE of averages? Or do we average the averages/std?**  
 
 Where FREQ refers to the variant allele frequency for each rare variant. VarScan reported the following variants as >3std from any one of the averages of the reference files.  
 
@@ -434,9 +434,10 @@ G910A|GCC>ACC|Ala304Thr|missense
 G1293A|CTG>CTA|Leu431Leu|synonymous
 G1521A|CTG>CTA|Leu507Leu|synonymous  
 
-**Discussion question: Are there any positions reported by VarScan in all 3 of the reference sequences? You could, in principle, also calculate the average and standard deviation between the 3 reference replicates for one position at a time. Which kind of average and standard deviation do you think is better for error correction?**  
+**QUESTION Are there any positions reported by VarScan in all 3 of the reference sequences? You could, in principle, also calculate the average and standard deviation between the 3 reference replicates for one position at a time. Which kind of average and standard deviation do you think is better for error correction?**  
 
 The following positions are reported by VarScan for all 3 of the reference sequences. Because this list contains positions that consistently poorly sequenced, it may be wiser for error correction to compute the average and standard deviation of variant allele frequency at only these positions.   
+
 165
 183
 216
@@ -473,7 +474,7 @@ The following positions are reported by VarScan for all 3 of the reference seque
 
 ## 6. Epitope Mapping
 
-**Use the epitope locations listed in Munoz et al (listed under reading for the lab) to determine if any of the high confidence (> 3 std deviations away from reference error rate) mutations from your roommate’s flu infection are located in an epitope region of hemeagglutinin. (Epitopes are the parts of the protein structure recognized by antibodies). If so, list which epitope regions are mutated**  
+Use the epitope locations listed in Munoz et al (listed under reading for the lab) to determine if any of the high confidence (> 3 std deviations away from reference error rate) mutations from your roommate’s flu infection are located in an epitope region of hemeagglutinin. (Epitopes are the parts of the protein structure recognized by antibodies). If so, list which epitope regions are mutated.  
 
 **QUESTION. Is this correct?**  
 
@@ -490,3 +491,4 @@ Reside 304 is located in **Epitope C** of hemeaglutinin.
 [SamTools](http://samtools.sourceforge.net/)  
 [VarScan](http://varscan.sourceforge.net/)  
 [WebDSV](http://www.molbiotools.com/WebDSV/)
+[Epitope Analysis Paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4482133/#R19)
