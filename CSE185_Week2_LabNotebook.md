@@ -403,3 +403,4 @@ http://www.molbiotools.com/WebDSV/index.html
 https://www.ncbi.nlm.nih.gov/nuccore/KF848938.1?report=fasta  
 [BWA](http://bio-bwa.sourceforge.net/)  
 [SamTools](http://samtools.sourceforge.net/)  
+[VarScan](http://varscan.sourceforge.net/)  
