@@ -403,7 +403,7 @@ SRR1705858|0.256%|0.0717%
 SRR1705859|0.237%|0.0524%  
 SRR1705860|0.250%|0.0780%  
 
-**QUESTION iClicker**  
+**What is the error rate of our variant calling? (iClicker)**  
 
 Did VarScan report rare mutations in your roommate's file with frequencies that are more than 3 standard deviations from the averages in the reference files?  
 
@@ -487,5 +487,5 @@ Reside 304 is located in **Epitope C** of hemeaglutinin.
 [BWA](http://bio-bwa.sourceforge.net/)  
 [SamTools](http://samtools.sourceforge.net/)  
 [VarScan](http://varscan.sourceforge.net/)  
-[WebDSV](http://www.molbiotools.com/WebDSV/)
+[WebDSV](http://www.molbiotools.com/WebDSV/)  
 [Epitope Analysis Paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4482133/#R19)
