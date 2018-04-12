@@ -404,6 +404,7 @@ SRR1705859|0.237%|0.0524%
 SRR1705860|0.250%|0.0780%  
 
 **What is the error rate of our variant calling? (iClicker)**  
+Based on these controls, the error rate is roughly 0.25%.  
 
 Did VarScan report rare mutations in your roommate's file with frequencies that are more than 3 standard deviations from the averages in the reference files?  
 
