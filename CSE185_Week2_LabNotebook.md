@@ -474,8 +474,6 @@ The following positions are reported by VarScan for all 3 of the reference seque
 
 Use the epitope locations listed in Munoz et al (listed under reading for the lab) to determine if any of the high confidence (> 3 std deviations away from reference error rate) mutations from your roommate’s flu infection are located in an epitope region of hemeagglutinin. (Epitopes are the parts of the protein structure recognized by antibodies). If so, list which epitope regions are mutated.  
 
-**QUESTION. Is this correct?**  
-
 The residues from my roommate's flu infection are 13, 165, 304, 431, and 507.  
 Residues 13, 431 and 507 are **not** located in an epitope region.  
 Reside 165 is located in **Epitope B** of hemeagglutinin.  
