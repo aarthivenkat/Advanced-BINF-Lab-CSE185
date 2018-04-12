@@ -179,8 +179,8 @@ The results of this command are as follows:
 In order to determine which are rare variants and which are sequencing errors, we perform control experiments with three samples.  
 For each fastq file f, we `wc -l f` and divide the result by 4.  
 
-SRR1705858.fastq    256586 reads
-SRR1705859.fastq    233327 reads
+SRR1705858.fastq    256586 reads  
+SRR1705859.fastq    233327 reads  
 SRR1705860.fastq    249964 reads  
 
 We should calculate a rough estimate of the coverage. Coverage is the total number of base pairs read in the FASTQ files divided by the total number of base pairs in the reference sequence.  
@@ -188,8 +188,7 @@ We should calculate a rough estimate of the coverage. Coverage is the total numb
 `wc -l KF848938.1.fasta`  
 25  
 25 - 2 (header and last line) = 23 * 70 + 55 (last line)  
-
-**QUESTION (249964 reads * 151 bp/read) / (23*70 + 55 bp) = 22669x coverage**  
+(249964 reads * 151 bp/read) / (23*70 + 55 bp) = **22669x coverage**  
 
 #### To align the control fastq files to the reference and create the mpileup file for VarScan,   
 ```
@@ -408,11 +407,9 @@ SRR1705860|0.250%|0.0780%
 
 Did VarScan report rare mutations in your roommate's file with frequencies that are more than 3 standard deviations from the averages in the reference files?  
 
-Yes. Using the excel spreadsheet with the controls and roommate variants (excluding common variants with frequency >95%), I wrote the nested if statement  
+Yes. Using the excel spreadsheet with the controls and roommate variants (excluding common variants with frequency >95%), I wrote the nested if statement to check which roommate variant frequencies were >3std from any one of the averages from the controls.  
 
-`=IF(FREQ>(0.256%+(3*0.0717%)),">3std",IF(FREQ>(0.237%+(3*0.0524%)),">3std",IF(FREQ>(0.25%+(3*0.078%)),">3std","<3std")))`  
-
-**QUESTION should we check if 3std > than ALL averages, or AT LEAST ONE of averages? Or do we average the averages/std?**  
+`=IF(FREQ>(0.256%+(3*0.0717%)),">3std",IF(FREQ>(0.237%+(3*0.0524%)),">3std",IF(FREQ>(0.25%+(3*0.078%)),">3std","<3std")))`    
 
 Where FREQ refers to the variant allele frequency for each rare variant. VarScan reported the following variants as >3std from any one of the averages of the reference files.  
 
@@ -434,7 +431,7 @@ G910A|GCC>ACC|Ala304Thr|missense
 G1293A|CTG>CTA|Leu431Leu|synonymous
 G1521A|CTG>CTA|Leu507Leu|synonymous  
 
-**QUESTION Are there any positions reported by VarScan in all 3 of the reference sequences? You could, in principle, also calculate the average and standard deviation between the 3 reference replicates for one position at a time. Which kind of average and standard deviation do you think is better for error correction?**  
+Are there any positions reported by VarScan in all 3 of the reference sequences? You could, in principle, also calculate the average and standard deviation between the 3 reference replicates for one position at a time. Which kind of average and standard deviation do you think is better for error correction?  
 
 The following positions are reported by VarScan for all 3 of the reference sequences. Because this list contains positions that consistently poorly sequenced, it may be wiser for error correction to compute the average and standard deviation of variant allele frequency at only these positions.   
 
