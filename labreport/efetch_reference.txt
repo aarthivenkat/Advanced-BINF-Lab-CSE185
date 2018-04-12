@@ -1,0 +1,1 @@
+efetch -db nucleotide -id KF848938.1 -format fasta > KF848938.1.fasta
