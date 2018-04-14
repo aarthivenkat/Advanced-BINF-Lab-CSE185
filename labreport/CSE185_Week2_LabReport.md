@@ -1,5 +1,6 @@
-# Put title here
-##### your name
+# Why did I get the Flu?  
+### Rare Missense Mutation in Epitope C implicated in Roommate Strain of Influenza  
+##### Aarthi Venkat  
 
 ## Abstract
 In no more than 100 words, briefly summarize what was done in the lab this week, what the findings were, and why they were important.
@@ -91,12 +92,10 @@ G1521A |CTG > CTA | Leu507Leu | synonymous | rare
 Finally, we turn to Munoz and Deem to determine whether these residues are located in epitopes of hemagglutinin. Of the residues in Table 3 (column 3), only **residues 165 and 304** were in epitopes (B and C, respectively). Because reside 165 is synonymous and 304 is missense, it is likely that only 304 is implicated in this case, and **a mutation in epitope C is a factor in my getting the flu**.  
 
 ## Discussion
-In 2-3 paragraphs, explain what you think the results mean, and why you are interpreting them this way. If you encountered any problems, or answered questions, discuss them and suggest ways to solve them with future experiments or analyses. Also include any information specifically requested in the tutorial.  
 
-1. How you decided which mutations were most likely to be real.  
-2. Explain how you think you were able to get the flu from your roommate, even though you had received the flu vaccine.  
-3. Propose three additional ways to control for error in deep sequencing experiments like this, and explain why error control is important for accurately identifying and quantitating rare variants. Our approach was pretty quick and simple; there are many more sophisticated methods out there, some of which we talked about in class. You can suggest laboratory steps to minimize errors in the first place, bioinformatics steps you could implement on our data, or existing software. For each suggestion, include a sentence or two explaining how it would reduce error.  
-4. Problems Encountered & Questions answered.  
+### Interpreting Results  
+
+In Table 1, we see that all our sampes have largely the same number of reads, as well as high mappability. Both of these factors will help mitigate errors in terms of bias. Table 2 indicates that all our controls have an error rate of roughly 0.25%, with standard deviation rate of roughly 0.07%. Because all these error rates are nearly the same, we interpret the roommate data by subsetting only variants with frequency significantly higher than one of these error rates. Table 3 shows our final list of all the roommate variants we believe are significant, but because the only regions of the virus that are specific to immune system response are the epitope regions, we would like to further subset this list to those mutations are involved in antigenic variation, which we do in the epitope anlaysis component of our results.  
 
 #### How did you decide which mutations were most likely to be real?  
 
@@ -106,7 +105,7 @@ For rare variants, we could not simply rely on the low threshold of 0.1% because
 
 #### Explain how you think you were able to get the flu from your roommate, even though you had received the flu vaccine.  
 
-According to Munoz and Deem, epitopes are components of the antigen recognized by the immune system, yet antigenic variation occurring in these regions remains an effective mechanism for viruses to evade adaptive response of the host immune system. As such, it is resourceful to study mutations in epitopic regions to determine how the viral DNA has changed to escape immune response. Of the residues in Table 3 column 3, which shows significant variants in the roommate DNA, only two residues (165 and 304) were in epitopes, (B and C, respectively). Because reside 165 is synonymous and 304 is missense, it is likely that only 304 is implicated in this case, and a mutation in epitope C is changing the antigen conformation such that the body cannot recognize this new antigen, and it cannot respond to it - hence I get the flu. It would interesting to see if the residue 304 mutation affects immune response to epitope B.  
+According to Munoz and Deem, epitopes are components of the antigen recognized by the immune system, yet antigenic variation occurring in these regions remains an effective mechanism for viruses to evade adaptive response of the host immune system. As such, it is resourceful to study mutations in epitopic regions to determine how the viral DNA has changed to escape immune response. Of the residues in Table 3 column 3, which shows significant variants in the roommate DNA, only two residues (165 and 304) were in epitopes, (B and C, respectively). Because reside 165 is synonymous and 304 is missense, it is likely that only 304 is implicated in this case, and a mutation in epitope C is changing the antigen conformation such that the body cannot recognize this new antigen, and it cannot respond to it - hence I get the flu. It would interesting to see if the residue 304 mutation affects immune response to epitope B, as B is a dominant epitope.  
 
 #### Error Control for Deep Sequencing 
 
@@ -119,6 +118,10 @@ As discussed in lecture, sequencing errors can occur in every part of the proces
 3. Informatics: Using quality scores from the FASTQ files, we are able to understand how the quality lowers as the read length increases. This is largely because errors that occur during sequencing tend to accumulate, resulting in less certainty as to the base represented by a cluster. To ameliorate this problem, we can trim the reads to ensure the per base quality scores satisfies a threshold for every read. This was done for us in this lab. We can also use the per tile quality scores to determine if there were significant issues with the flow cell, such as a bubble or a piece of dirt.  
 
 Error control is important for accurately identifying and analyzing rare variants because rare variants will have extremely low frequency - that close to the sequencing error rate. If we have too many errors in our sequencing, then the error rate will be inordinately high, and we will not be able to determine whether a variant we have identified is a true variant or an error. However, by applying principles of error control we learned in lecture and from [Robasky et al](https://www.nature.com/articles/nrg3655), we can lower error rate and increase the significance of our findings.  
+
+#### Problems and Questions  
+
+It seems that our control files have a relatively high sequencing error rate (0.25%), so I would be interested in looking into why these controls consistently differ from the reference sequence at certain positions. If I knew the cause, I could further investigate how to mitigate these effects and analyze rare variants with stronger confidence. Further, the epitope analysis paper by Munoz and Deem seems to admit there are lacuns in the quanitification of epitope dominance, particularly that a "precise determination" of dominance and an experimental measure of p_epitope and cross activity in proposed vaccine strains would be productive. This paper seems to be an initial analysis of epitopes, and with more quantification and measures of epitope variation for future experiments, we could make better predictions with our data.  
 
 ## Citations
 You can use any commonly used format you like, but be consistent. Lab reports will be submitted via turnitin to check for plagiarism, so be sure to cite other people’s ideas, and put everything in your own words (paraphrasing) if you aren’t using direct quotes.
