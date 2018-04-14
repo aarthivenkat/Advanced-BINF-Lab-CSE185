@@ -129,6 +129,12 @@ Error control is important for accurately identifying and analyzing rare variant
 
 It seems that our control files have a relatively high sequencing error rate (0.25%), so I would be interested in looking into why these controls consistently differ from the reference sequence at certain positions. If I knew the cause, I could further investigate how to mitigate these effects and analyze rare variants with stronger confidence. Further, the epitope analysis paper by Munoz and Deem seems to admit there are lacuns in the quanitification of epitope dominance, particularly that a "precise determination" of dominance and an experimental measure of p_epitope and cross activity in proposed vaccine strains would be productive. This paper seems to be an initial analysis of epitopes, and with more quantification and measures of epitope variation for future experiments, we could make better predictions with our data.  
 
+## Extra Credit  
+
+For dataset roommate, I would calculate actual average coverage by first putting all the mapped reads into a text file, and then determining the number of bp in that file, and finally dividing that number by 1665, the number of bp in the reference file.  
+
+To put all the mapped reads into a text file, I would run `samtools view -F 4 roommate.bam | cut -f 10 > roommateMappedReads.txt`, which filters the reads in the roommate.bam file to those that are mapped, then grabs the 10th column (the sequence) and puts it in the text file roommateMappedReads.txt. Then I would write a python script to count the total number of characters (excluding new line chars), and output that result / 1665.  
+
 ## Citations
 1. Cermak, Vladimir. “WebDSV.” WebDSV - Free Online DNA Sequence Editor, www.molbiotools.com/WebDSV/index.html.  
 
