@@ -80,11 +80,11 @@ T774C | TTT > TTC | Phe258Phe | synonymous | common
 T1008G | GCT > GCG | Ala336Ala | synonymous | common  
 A1260C | CTA > CTC | Leu420Leu | synonymous | commmon  
 T1339C | TTG > CTG | Leu447Leu | synonymous | common   
-T38C | CTG>CCG | Leu13Pro | missense | rare  
-C495T | AAC>AAT | Asn165Asn | synonymous | rare  
-G910A | GCC>ACC| Ala304Thr | missense | rare  
-G1293A |CTG>CTA | Leu431Leu | synonymous | rare  
-G1521A |CTG>CTA | Leu507Leu | synonymous | rare  
+T38C | CTG > CCG | Leu13Pro | missense | rare  
+C495T | AAC > AAT | Asn165Asn | synonymous | rare  
+G910A | GCC > ACC| Ala304Thr | missense | rare  
+G1293A |CTG > CTA | Leu431Leu | synonymous | rare  
+G1521A |CTG > CTA | Leu507Leu | synonymous | rare  
 
 ### Epitope Analysis  
 
@@ -107,6 +107,18 @@ For rare variants, we could not simply rely on the low threshold of 0.1% because
 #### Explain how you think you were able to get the flu from your roommate, even though you had received the flu vaccine.  
 
 According to Munoz and Deem, epitopes are components of the antigen recognized by the immune system, yet antigenic variation occurring in these regions remains an effective mechanism for viruses to evade adaptive response of the host immune system. As such, it is resourceful to study mutations in epitopic regions to determine how the viral DNA has changed to escape immune response. Of the residues in Table 3 column 3, which shows significant variants in the roommate DNA, only two residues (165 and 304) were in epitopes, (B and C, respectively). Because reside 165 is synonymous and 304 is missense, it is likely that only 304 is implicated in this case, and a mutation in epitope C is changing the antigen conformation such that the body cannot recognize this new antigen, and it cannot respond to it - hence I get the flu. It would interesting to see if the residue 304 mutation affects immune response to epitope B.  
+
+#### Error Control for Deep Sequencing 
+
+As discussed in lecture, sequencing errors can occur in every part of the process - sample collection, library preparation, sequencing and analysis. The following laboratory steps can be taken to minimize errors.  
+
+1. Sample collection: contamination can introduce DNA into the sample that is different than the source of analysis; this can result in gross misanalysis of the data, particularly because it occurs upstream of the sequencing pathway. One way to control for this would be to ensure all people involved in the sampling are acutely aware of lab protocol, such as wearing the proper equipment and following sterilization and preparation procedures.  
+
+2. Sample collection: amplification mutations can change how the cluster is read by the sequencing machine, especially if they are introduced in an early amplification cycle such that the DNA will be amplified with the mutation. A way to control this process is to minimize amplification using PCR-free library prep, which necessarily requires more input DNA.  
+
+3. Informatics: Using quality scores from the FASTQ files, we are able to understand how the quality lowers as the read length increases. This is largely because errors that occur during sequencing tend to accumulate, resulting in less certainty as to the base represented by a cluster. To ameliorate this problem, we can trim the reads to ensure the per base quality scores satisfies a threshold for every read. This was done for us in this lab. We can also use the per tile quality scores to determine if there were significant issues with the flow cell, such as a bubble or a piece of dirt.  
+
+Error control is important for accurately identifying and analyzing rare variants because rare variants will have extremely low frequency - that close to the sequencing error rate. If we have too many errors in our sequencing, then the error rate will be inordinately high, and we will not be able to determine whether a variant we have identified is a true variant or an error. However, by applying principles of error control we learned in lecture and from [Robasky et al](https://www.nature.com/articles/nrg3655), we can lower error rate and increase the significance of our findings.  
 
 ## Citations
 You can use any commonly used format you like, but be consistent. Lab reports will be submitted via turnitin to check for plagiarism, so be sure to cite other people’s ideas, and put everything in your own words (paraphrasing) if you aren’t using direct quotes.
