@@ -124,4 +124,18 @@ Error control is important for accurately identifying and analyzing rare variant
 It seems that our control files have a relatively high sequencing error rate (0.25%), so I would be interested in looking into why these controls consistently differ from the reference sequence at certain positions. If I knew the cause, I could further investigate how to mitigate these effects and analyze rare variants with stronger confidence. Further, the epitope analysis paper by Munoz and Deem seems to admit there are lacuns in the quanitification of epitope dominance, particularly that a "precise determination" of dominance and an experimental measure of p_epitope and cross activity in proposed vaccine strains would be productive. This paper seems to be an initial analysis of epitopes, and with more quantification and measures of epitope variation for future experiments, we could make better predictions with our data.  
 
 ## Citations
-You can use any commonly used format you like, but be consistent. Lab reports will be submitted via turnitin to check for plagiarism, so be sure to cite other people’s ideas, and put everything in your own words (paraphrasing) if you aren’t using direct quotes.
+1. Cermak, Vladimir. “WebDSV.” WebDSV - Free Online DNA Sequence Editor, www.molbiotools.com/WebDSV/index.html.  
+
+2. “Influenza (Flu).” Centers for Disease Control and Prevention, Centers for Disease Control and Prevention, 30 Mar. 2018, www.cdc.gov/flu/about/season/flu-season-2017-2018.htm.  
+
+3. “Influenza A Virus (A/USA/RVD1_H3/2011(H3N2)) Segment 4 Hemagglutinin ( - Nucleotide - NCBI.” National Center for Biotechnology Information, U.S. National Library of Medicine, www.ncbi.nlm.nih.gov/nuccore/KF848938.1?report=fasta.  
+
+4. Koboldt, D., Zhang, Q., Larson, D., Shen, D., McLellan, M., Lin, L., Miller, C., Mardis, E., Ding, L., & Wilson, R. (2012). VarScan 2: Somatic mutation and copy number alteration discovery in cancer by exome sequencing Genome Research DOI: 10.1101/gr.129684.111  
+
+5. Li H. and Durbin R. (2009) Fast and accurate short read alignment with Burrows-Wheeler Transform. Bioinformatics, 25:1754-60. [PMID: 19451168]  
+
+6. Li H., Handsaker B., Wysoker A., Fennell T., Ruan J., Homer N., Marth G., Abecasis G., Durbin R. and 1000 Genome Project Data Processing Subgroup (2009) The Sequence alignment/map (SAM) format and SAMtools. Bioinformatics, 25, 2078-9. [PMID: 19505943]  
+
+7. Muñoz, Enrique T., and Michael W. Deem. “Epitope Analysis for Influenza Vaccine Design.” Vaccine 23.9 (2005): 1144–1148. PMC. Web. 14 Apr. 2018.  
+
+8. Robasky K, et al. The role of replicates for error mitigation in next-generation sequencing, Nat. Rev. Genet. , 2014, vol. 15 (pg. 56-62)  
