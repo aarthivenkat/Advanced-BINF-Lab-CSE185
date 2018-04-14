@@ -97,17 +97,17 @@ Finally, we turn to Munoz and Deem to determine whether these residues are locat
 
 In Table 1, we see that all our sampes have largely the same number of reads, as well as high mappability. Both of these factors will help mitigate errors in terms of bias. Table 2 indicates that all our controls have an error rate of roughly 0.25%, with standard deviation rate of roughly 0.07%. Because all these error rates are nearly the same, we interpret the roommate data by subsetting only variants with frequency significantly higher than one of these error rates. Table 3 shows our final list of all the roommate variants we believe are significant, but because the only regions of the virus that are specific to immune system response are the epitope regions, we would like to further subset this list to those mutations are involved in antigenic variation, which we do in the epitope anlaysis component of our results.  
 
-#### How did you decide which mutations were most likely to be real?  
+### How did you decide which mutations were most likely to be real?  
 
 For common variants, we rely on the threshold of 95% to argue that, at this threshold, we see all the roommate sequences with this variation, and thus they are likely real because the threshold is significantly high.  
 
 For rare variants, we could not simply rely on the low threshold of 0.1% because this includes variants introduced through faults in deep sequencing (in other words, errors). Thus, we had to determine the error rate of the sequencing experiments by finding the variants in the control files, and then only choose roommate variants with frequency significantly higher than this error rate. We decided that mutations satisfying this condition were also most likely real.  
 
-#### Explain how you think you were able to get the flu from your roommate, even though you had received the flu vaccine.  
+### Explain how you think you were able to get the flu from your roommate, even though you had received the flu vaccine.  
 
 According to Munoz and Deem, epitopes are components of the antigen recognized by the immune system, yet antigenic variation occurring in these regions remains an effective mechanism for viruses to evade adaptive response of the host immune system. As such, it is resourceful to study mutations in epitopic regions to determine how the viral DNA has changed to escape immune response. Of the residues in Table 3 column 3, which shows significant variants in the roommate DNA, only two residues (165 and 304) were in epitopes, (B and C, respectively). Because reside 165 is synonymous and 304 is missense, it is likely that only 304 is implicated in this case, and a mutation in epitope C is changing the antigen conformation such that the body cannot recognize this new antigen, and it cannot respond to it - hence I get the flu. It would interesting to see if the residue 304 mutation affects immune response to epitope B, as B is a dominant epitope.  
 
-#### Error Control for Deep Sequencing 
+### Error Control for Deep Sequencing 
 
 As discussed in lecture, sequencing errors can occur in every part of the process - sample collection, library preparation, sequencing and analysis. The following laboratory steps can be taken to minimize errors.  
 
@@ -119,7 +119,7 @@ As discussed in lecture, sequencing errors can occur in every part of the proces
 
 Error control is important for accurately identifying and analyzing rare variants because rare variants will have extremely low frequency - that close to the sequencing error rate. If we have too many errors in our sequencing, then the error rate will be inordinately high, and we will not be able to determine whether a variant we have identified is a true variant or an error. However, by applying principles of error control we learned in lecture and from [Robasky et al](https://www.nature.com/articles/nrg3655), we can lower error rate and increase the significance of our findings.  
 
-#### Problems and Questions  
+### Problems and Questions  
 
 It seems that our control files have a relatively high sequencing error rate (0.25%), so I would be interested in looking into why these controls consistently differ from the reference sequence at certain positions. If I knew the cause, I could further investigate how to mitigate these effects and analyze rare variants with stronger confidence. Further, the epitope analysis paper by Munoz and Deem seems to admit there are lacuns in the quanitification of epitope dominance, particularly that a "precise determination" of dominance and an experimental measure of p_epitope and cross activity in proposed vaccine strains would be productive. This paper seems to be an initial analysis of epitopes, and with more quantification and measures of epitope variation for future experiments, we could make better predictions with our data.  
 
