@@ -6,15 +6,20 @@
 
 We determine the cause of my flu knowing that my roommate's virus matches the HI profile for 2017/2018 strain H3N2. Suspecting that a portion of the population could have mutated such that the antigen could not be recognized by my immune system, we sequence my roommate's viral sample. Ultimately, we find seven common (residues 24, 39, 199, 258, 336, 420 447) and five rare (residues 13, 165, 304, 431, 507) variants. Residue 304 is both missense and located in an epitope (Epitope C), indicating that it may be implicated in antigenic variation and the cause of my flu.  
 
-## Introduction
-In 2-3 paragraphs, provide enough background information to understand the biology behind the weeks project. Be sure to state what problem or question the week’s lab work addressed, and why it is important. You must cite at least one scientific journal article for this section (it can, but doesn’t have to be, the assigned reading). When you use outside resources, use in-text citations in the text attributing any ideas or information from materials outside of our course lecture or tutorial. In-text citations give the source for information right where it is written (1).
+## Introduction  
+
+According to the [CDC](www.cdc.gov/flu/), flu vaccines develop protection against viral infection. The vaccine allows the immune system to produce antibodies to recognize surface of hemagglutinin, the protein facilitating viral binding to respiratory or red blood cells. The vaccine is designed based on research indicating the most commmon viruses in the upcoming season. However, mutations in epitope regions on the surface of HA mean that the immune system can no longer recognize the viral species. Such an occurence is called antigenic variation, and is a common viral mechanism to evade immune response. As such, influenze mutates at a rate of one mutation per genome per replication, and multiple quasispecies can exist in a single host. Therefore, it is not uncommon that a person who got the flu vaccine could also get the flu, as mutations allowing the virus to escape the vaccine are a regular aspect of influenza. 
+
+As such, we are interested in studying my roommate's viral DNA to determine which mutations in the viral DNA may have allowed the  virus to escape the flu vaccine. However, because quasispecies tend to exist in a single host, we must have extremly high coverage, known as deep sequencing, to be able to predict rare variants that the HI assay may miss.
+
+While increasing coverage is a smart way to unveil rare variants, it brings with it another issue. Next generation sequencing is not a perfect method, and errors may be introduced in every part of the pathway, from sampling of the DNA to bioinformatics analyses. Acute efforts must be made to mitigate these problems, and in this lab we error control by using replicates as our controls, as encouraged by [Robasky et al](https://www.nature.com/articles/nrg3655), by increasing coverage for rare variant analysis, and by trimming the reads based on per base quality. We also determine the variant frequency in control samples, indicating a base error rate for sequencing, and then subset our rare variants as those with frequency significantly higher than the error rate.
  
 ## Methods  
 
 ### Introducing Sequencing Data  
 
-#### roommate FASTQ file  
-I was given my roommate’s viral FASTQ file, which I was told to be the output of Illumina Single-end sequencing. Each read in this file is a different length, indicating that the data was pre-processed. This was confirmed with the medical school.  
+#### roommate FASTQ file  
+I was given my roommate’s viral FASTQ file, which I was told to be the output of Illumina Single-end sequencing. Each read in this file is a different length, indicating that the data was pre-processed. This was confirmed with the medical school.  
 
 To determine the number of cycles, we ran an [awk script](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/awk_roommate_cycles.txt) to output sorted unique read lengths (col2) and the count of each read length (col1).  
 
@@ -106,7 +111,7 @@ For rare variants, we could not simply rely on the low threshold of 0.1% because
 
 ### Explain how you think you were able to get the flu from your roommate, even though you had received the flu vaccine.  
 
-According to Munoz and Deem, epitopes are components of the antigen recognized by the immune system, yet antigenic variation occurring in these regions remains an effective mechanism for viruses to evade adaptive response of the host immune system. As such, it is resourceful to study mutations in epitopic regions to determine how the viral DNA has changed to escape immune response. Of the residues in Table 3 column 3, which shows significant variants in the roommate DNA, only two residues (165 and 304) were in epitopes, (B and C, respectively). Because reside 165 is synonymous and 304 is missense, it is likely that only 304 is implicated in this case, and a mutation in epitope C is changing the antigen conformation such that the body cannot recognize this new antigen, and it cannot respond to it - hence I get the flu. It would interesting to see if the residue 304 mutation affects immune response to epitope B, as B is a dominant epitope.  
+According to Munoz and Deem, epitopes are components of the antigen recognized by the immune system, yet antigenic variation occurring in these regions remains an effective mechanism for viruses to evade adaptive response of the host immune system. As such, it is resourceful to study mutations in epitope regions to determine how the viral DNA has changed to escape immune response. Of the residues in Table 3 column 3, which shows significant variants in the roommate DNA, only two residues (165 and 304) were in epitopes, (B and C, respectively). Because reside 165 is synonymous and 304 is missense, it is likely that only 304 is implicated in this case, and a mutation in epitope C is changing the antigen conformation such that the body cannot recognize this new antigen, and it cannot respond to it - hence I get the flu. It would interesting to see if the residue 304 mutation affects immune response to epitope B, as B is a dominant epitope.  
 
 ### Error Control for Deep Sequencing 
 
@@ -127,7 +132,7 @@ It seems that our control files have a relatively high sequencing error rate (0.
 ## Citations
 1. Cermak, Vladimir. “WebDSV.” WebDSV - Free Online DNA Sequence Editor, www.molbiotools.com/WebDSV/index.html.  
 
-2. “Influenza (Flu).” Centers for Disease Control and Prevention, Centers for Disease Control and Prevention, 30 Mar. 2018, www.cdc.gov/flu/about/season/flu-season-2017-2018.htm.  
+2. “Influenza (Flu).” Centers for Disease Control and Prevention, Centers for Disease Control and Prevention, 30 Mar. 2018, www.cdc.gov/flu/.
 
 3. “Influenza A Virus (A/USA/RVD1_H3/2011(H3N2)) Segment 4 Hemagglutinin ( - Nucleotide - NCBI.” National Center for Biotechnology Information, U.S. National Library of Medicine, www.ncbi.nlm.nih.gov/nuccore/KF848938.1?report=fasta.  
 
