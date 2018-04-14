@@ -119,7 +119,7 @@ G595T | GCA > TCA | Ala199Ser | missense
 T774C | TTT > TTC | Phe258Phe | synonymous
 T1008G | GCT > GCG | Ala336Ala | synonymous
 A1260C | CTA > CTC | Leu420Leu | synonymous
-T1339C | TTG > CTG | Leu447Leu | synonymous
+T1339C | TTG > CTG | Leu447Leu | synonymous  
 
 **How many common missense viariants did you find in the sample from your roommate? (iClicker)** 
 Of the six variants, I found one missense variant.  
