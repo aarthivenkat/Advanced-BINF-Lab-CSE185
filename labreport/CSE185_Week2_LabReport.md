@@ -88,15 +88,25 @@ G1521A |CTG>CTA | Leu507Leu | synonymous | rare
 
 ### Epitope Analysis  
 
-Finally, we turn to Munoz and Deem to determine whether these residues are located in epitopes of hemagglutinin. Of the residues in Table 3 (column 3), only **residues 165 and 304** were in epitopes B and C (respectively). Because reside 165 is synonymous and 304 is missense, it is likely that only 304 is implicated in this case, and **a mutation in epitope C is a factor in my getting the flu**.  
+Finally, we turn to Munoz and Deem to determine whether these residues are located in epitopes of hemagglutinin. Of the residues in Table 3 (column 3), only **residues 165 and 304** were in epitopes (B and C, respectively). Because reside 165 is synonymous and 304 is missense, it is likely that only 304 is implicated in this case, and **a mutation in epitope C is a factor in my getting the flu**.  
 
 ## Discussion
 In 2-3 paragraphs, explain what you think the results mean, and why you are interpreting them this way. If you encountered any problems, or answered questions, discuss them and suggest ways to solve them with future experiments or analyses. Also include any information specifically requested in the tutorial.  
 
 1. How you decided which mutations were most likely to be real.  
 2. Explain how you think you were able to get the flu from your roommate, even though you had received the flu vaccine.  
-3. Also in the discussion section, propose three additional ways to control for error in deep sequencing experiments like this, and explain why error control is important for accurately identifying and quantitating rare variants. Our approach was pretty quick and simple; there are many more sophisticated methods out there, some of which we talked about in class. You can suggest laboratory steps to minimize errors in the first place, bioinformatics steps you could implement on our data, or existing software. For each suggestion, include a sentence or two explaining how it would reduce error.  
+3. Propose three additional ways to control for error in deep sequencing experiments like this, and explain why error control is important for accurately identifying and quantitating rare variants. Our approach was pretty quick and simple; there are many more sophisticated methods out there, some of which we talked about in class. You can suggest laboratory steps to minimize errors in the first place, bioinformatics steps you could implement on our data, or existing software. For each suggestion, include a sentence or two explaining how it would reduce error.  
 4. Problems Encountered & Questions answered.  
+
+#### How did you decide which mutations were most likely to be real?  
+
+For common variants, we rely on the threshold of 95% to argue that, at this threshold, we see all the roommate sequences with this variation, and thus they are likely real because the threshold is significantly high.  
+
+For rare variants, we could not simply rely on the low threshold of 0.1% because this includes variants introduced through faults in deep sequencing (in other words, errors). Thus, we had to determine the error rate of the sequencing experiments by finding the variants in the control files, and then only choose roommate variants with frequency significantly higher than this error rate. We decided that mutations satisfying this condition were also most likely real.  
+
+#### Explain how you think you were able to get the flu from your roommate, even though you had received the flu vaccine.  
+
+According to Munoz and Deem, epitopes are components of the antigen recognized by the immune system, yet antigenic variation occurring in these regions remains an effective mechanism for viruses to evade adaptive response of the host immune system. As such, it is resourceful to study mutations in epitopic regions to determine how the viral DNA has changed to escape immune response. Of the residues in Table 3 column 3, which shows significant variants in the roommate DNA, only two residues (165 and 304) were in epitopes, (B and C, respectively). Because reside 165 is synonymous and 304 is missense, it is likely that only 304 is implicated in this case, and a mutation in epitope C is changing the antigen conformation such that the body cannot recognize this new antigen, and it cannot respond to it - hence I get the flu. It would interesting to see if the residue 304 mutation affects immune response to epitope B.  
 
 ## Citations
 You can use any commonly used format you like, but be consistent. Lab reports will be submitted via turnitin to check for plagiarism, so be sure to cite other people’s ideas, and put everything in your own words (paraphrasing) if you aren’t using direct quotes.
