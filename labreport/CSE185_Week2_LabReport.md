@@ -2,8 +2,9 @@
 ### Rare Missense Mutation in Epitope C implicated in Roommate Strain of Influenza  
 ##### Aarthi Venkat  
 
-## Abstract
-In no more than 100 words, briefly summarize what was done in the lab this week, what the findings were, and why they were important.
+## Abstract  
+
+We determine the cause of my flu knowing that my roommate's virus matches the HI profile for 2017/2018 strain H3N2. Suspecting that a portion of the population could have mutated such that the antigen could not be recognized by my immune system, we sequence my roommate's viral sample. Ultimately, we find seven common (residues 24, 39, 199, 258, 336, 420 447) and five rare (residues 13, 165, 304, 431, 507) variants. Residue 304 is both missense and located in an epitope (Epitope C), indicating that it may be implicated in antigenic variation and the cause of my flu.  
 
 ## Introduction
 In 2-3 paragraphs, provide enough background information to understand the biology behind the weeks project. Be sure to state what problem or question the week’s lab work addressed, and why it is important. You must cite at least one scientific journal article for this section (it can, but doesn’t have to be, the assigned reading). When you use outside resources, use in-text citations in the text attributing any ideas or information from materials outside of our course lecture or tutorial. In-text citations give the source for information right where it is written (1).
