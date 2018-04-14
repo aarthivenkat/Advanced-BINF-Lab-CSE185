@@ -11,43 +11,40 @@ In 2-3 paragraphs, provide enough background information to understand the biolo
 
 ### Introducing Sequencing Data  
 
-#### roommate.fastq  
-I was given my roommate’s viral FASTQ file, which I was told to be the output of Illumina Single-end sequencing. There are **286739 reads** in this file, and each read was a different length, indicating that the data was pre-processed. This was confirmed with the medical school.  
+#### roommate FASTQ file  
+I was given my roommate’s viral FASTQ file, which I was told to be the output of Illumina Single-end sequencing. Each read in this file is a different length, indicating that the data was pre-processed. This was confirmed with the medical school.  
 
-To determine the number of cycles, we run an [awk script](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/awk_roommate_cycles.txt) to output sorted unique read lengths (col2) and the count of each read length (col1).  
+To determine the number of cycles, we ran an [awk script](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/awk_roommate_cycles.txt) to output sorted unique read lengths (col2) and the count of each read length (col1).  
 
-So, the maximum read length is 151 bp, so unless every read was trimmed, it is likely that the number of cycles carried out during the sequencing run is 151.  
+The maximum read length is 151 bp, so unless every read was trimmed, it is likely that the number of cycles carried out during the sequencing run is 151.  
 
-#### reference fastq
-To determine which of our "rare variants" are not solely sequencing errors, I use 3 control samples.  
-SRR1705858.fastq 256586 reads  
-SRR1705859.fastq 233327 reads  
-SRR1705860.fastq 249964 reads  
+#### reference FASTQ files
+To determine which of our "rare variants" are not solely sequencing errors, I use 3 control samples (SRR1705858, SRR1705859, SRR1705860).  
 
 The number of cycles during the sequencing run is 151, and the data was pre-processed because not every read has exactly 151 bp.   
 
 ### Alignment of roommate data to reference FASTA  
-We [download the reference KF848938.1 file from NCBI in the format FASTA](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/efetch_reference.txt).  
+We first [download the reference KF848938.1 file from NCBI in the format FASTA](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/efetch_reference.txt).  
 
-Now, using **[BWA-MEM](http://bio-bwa.sourceforge.net/) (v.0.7.12-r1039): Burrows-Wheeler Aligner**, we indexed the FASTA file with bwa index and ran the algorithm for alignment with bwa mem on the FASTA file and the two trimmed FASTQ files. This was outputted to a SAM file, so we can use **[SAMtools](http://samtools.sourceforge.net/) (v.1.5)** to create a BAM file. Using the samtools view -f 4 command, determine that 3430 reads are unmapped, so 283309 reads were mapped. We then make a pileup file using the FASTA file and BAM file in order to use VarScan to predict variants and effects.  
+Then, using **[BWA-MEM](http://bio-bwa.sourceforge.net/) (v.0.7.12-r1039): Burrows-Wheeler Aligner**, we index the FASTA file with bwa index and run the alignment with bwa mem on the FASTA file and the roommate FASTQ file. This was outputted to a SAM file, so we can use **[SAMtools](http://samtools.sourceforge.net/) (v.1.5)** to create a BAM file. We then make a mpileup file using the FASTA file and BAM file in order to use VarScan to predict variants and effects.  
 
 ### Common variants from VarScan  
 
-We can now run **[VarScan](http://varscan.sourceforge.net) (v.2.3.9)** on the pileup file with a threshold of 95% and a --variants flag and --output-vcf flag to create a VCF file with the variant information. To format the VCF file for readability, we run an [awk script](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/awk_vcf_interpret.txt) to output common variants. 
+We can now run **[VarScan](http://varscan.sourceforge.net) (v.2.3.9)** on the mpileup file with a threshold of 95% and a --variants flag and --output-vcf flag to create a VCF file of common variants. To format the VCF file for readability, we run an [awk script](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/awk_vcf_interpret.txt) to output common variants. 
 
-Finally, we would like to manually check to see how the amino acids change to determine potential implications of these variants. We copy the reference FASTA sequence into online sequence editor [WebDSV](http://www.molbiotools.com/WebDSV/) and note which variants are missense or synonymous, as well as the amino acid change information.  
+Finally, we would like to manually check the file to determine potential implications of these variants. We copy the reference FASTA sequence into online sequence editor [WebDSV](http://www.molbiotools.com/WebDSV/) and note which variants are missense or synonymous, as well as the amino acid change information.  
 
 ### Rare variants from VarScan
 
-Similarly, we run VarScan on the pileup with a threshold of 0.1% and a --variatns and --output-vcf flag to create a VCF file with the rare variant information. We want to format the VCF with frequency this time, so run a different [awk script](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/awk_vcf_interpret_freq.txt) to output the initial list of "variants" with frequency above 0.1%.  
+Similarly, we run VarScan on the mpileup with a threshold of 0.1% and a --variants and --output-vcf flag to create a VCF file with the rare variant information. We want to format the VCF with frequency this time, so run a different [awk script](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/awk_vcf_interpret_freq.txt) to output the initial list of "variants" with frequency above 0.1%.  
 
 ### Sequencing Errors in Control Files  
 
-To determine the sequencing errors in the control files, we use the exact same process as above to find the rare variants. We align the control fastq files to the reference and create the mpileup file for VarScan using BWA MEM and SAMTools. Then we run VarScan with minimum variant frequency 0.1%, only outputting variants and formatting in VCF. Then, I parse the VCF using the [awk script](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/awk_vcf_interpret_freq.txt) from the rare variants section above.  
+To determine the sequencing errors in the control files, we use the exact same process as above to find the rare variants. We align the control fastq files to the reference and create the mpileup file for VarScan using BWA MEM and SAMTools. Then we run VarScan with minimum variant frequency 0.1%, only outputting variants and formatting in VCF. Then, I parse the VCF using the [awk script](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/awk_vcf_interpret_freq.txt) from the rare variants section above. Because there will be no variants in the control files, any "variants" we do find will be sequencing errors with frequency >0.1%.  
 
 ### Excel to Compare Roommate to Control  
 
-We create an [Excel spreadsheet](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/control_sample_variants.xlsx) with all the errors of the control files as well as the errors and variants of the roommate file. Using Excel commands `AVERAGE` and `STDEV`, we get the average and stdev for each of the control files, and then use a [nested if statement](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/excel_greaterthan3std.txt) for each of the roommate variants to determine if the frequency is greater than 3 standard deviations from the average of any one of the control files.  
+We create an [Excel spreadsheet](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/all_sample_variants.xlsx) with all the errors of the control files as well as the errors and variants of the roommate file. Using Excel commands `AVERAGE` and `STDEV`, we get the average and stdev for each of the control files, and then use a simple [if statement](https://github.com/cse185-sp18/cse185-week2-aarthivenkat/blob/master/labreport/excel_greaterthan3std.txt) for each of the roommate variants to determine if the frequency is greater than 3 standard deviations from the average of any one of the control files.  
 
 We consider this list of roommate variants to be "real variants", as the frequency is significantly greater than the frequency of sequencing errors. We plug these variants again into WebDSV and note which variants are missense or synonymous, as well as the amino acid change information, which is critical for epitope analysis.  
 
