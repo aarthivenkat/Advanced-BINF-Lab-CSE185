@@ -45,12 +45,13 @@ We create an [Excel spreadsheet](https://github.com/cse185-sp18/cse185-week2-aar
 We consider this list of roommate variants to be "real variants", as the frequency is significantly greater than the frequency of sequencing errors. We plug these variants again into WebDSV and note which variants are missense or synonymous, as well as the amino acid change information, which is critical for epitope analysis.  
 
 ### Epitope Analysis  
-Simply reading the [epitope paper given to us](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4482133/#R19), I manually scanned the results section to see which residues in the epitopes were implicated with antigenic variation, and whether any of these residues coincided with residues from the roommate's rare variants.  
+Simply reading the [epitope paper given to us](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4482133/), I manually scanned the results section to see which residues in the epitopes were implicated with antigenic variation, and whether any of these residues coincided with residues from the roommate's rare variants.  
 
 ## Results  
 This section should include the results of your data processing and data analysis, and may include tables with read lengths, pictures of quality distributions, or tables of gene names for examples. In the text, briefly restate how you got the results in full sentences, but in less detail than the methods, before you say what the results are (ie ‘reads were mapped to the reference and scanned to identify positions that likely contained mutations. We found….’). Refer to tables and figures by number, and include a brief descriptive title for each. Be sure to include any results specifically requested in the lab project tutorial. The results section should be as objective as possible, so please refrain from interpreting the meaning or significance here. It should be just the facts.  
+First, we will look at the mappability for each of the four samples (Table 1).  
 
-### Reads Mapped
+### Table 1. Reads Mapped
 Sample|Initial Number of Reads| Number of Reads Mapped  
 ---|---|---  
 roommate|286739|283309  
@@ -58,14 +59,18 @@ SRR1705858|256586|256500
 SRR1705859|233327|233251  
 SRR1705860|249964|249888  
 
-### Reference Sample Stats  
+For each control file, we can determine the error rate by calculating the average/stdev of all the variant allele frequencies (Table 2).  
+
+### Table 2. Control Sample Stats  
 Control|AvgFreq|StdevFreq  
---|--|--  
+---|---|---  
 SRR1705858|0.256%|0.0717%  
 SRR1705859|0.237%|0.0524%  
 SRR1705860|0.250%|0.0780%  
 
-### Roommate Variants  
+From VarScan and WebDSV, we were able to determine the implications of common variants for the roommate file. Similarly, after choosing the subset of roommate rare variants that were greater than 3 standard deviations from any one of the averages of the control files, we used WebDSV on that subset to add to the following table (Table 3).   
+
+### Table 3. Roommate Variants  
 Variant | Original Codon > Mutated Codon | AA Change | Type of Mutation | Type of Variant  
 ---|---|---|---|---  
 A72G | ACA > ACG| Thr24Thr | synonymous | common  
@@ -83,12 +88,7 @@ G1521A |CTG>CTA | Leu507Leu | synonymous | rare
 
 ### Epitope Analysis  
 
-Residue | Located in Epitope? | Which Epitope  
-13 | No | N/A  
-165 | Yes | Epitope B  
-304 | Yes | Epitope C  
-431 | No | N/A  
-507 | No | N/A  
+Finally, we turn to Munoz and Deem to determine whether these residues are located in epitopes of hemagglutinin. Of the residues in Table 3 (column 3), only **residues 165 and 304** were in epitopes B and C (respectively). Because reside 165 is synonymous and 304 is missense, it is likely that only 304 is implicated in this case, and **a mutation in epitope C is a factor in my getting the flu**.  
 
 ## Discussion
 In 2-3 paragraphs, explain what you think the results mean, and why you are interpreting them this way. If you encountered any problems, or answered questions, discuss them and suggest ways to solve them with future experiments or analyses. Also include any information specifically requested in the tutorial.
