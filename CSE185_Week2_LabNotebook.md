@@ -487,4 +487,5 @@ Reside 304 is located in **Epitope C** of hemeaglutinin.
 [SamTools](http://samtools.sourceforge.net/)  
 [VarScan](http://varscan.sourceforge.net/)  
 [WebDSV](http://www.molbiotools.com/WebDSV/)  
-[Epitope Analysis Paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4482133/#R19)
+[Epitope Analysis Paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4482133/)  
+[The role of replicates in minimizing sequencing errors](https://www.nature.com/articles/nrg3655)
