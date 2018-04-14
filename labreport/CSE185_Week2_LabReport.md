@@ -47,8 +47,8 @@ We consider this list of roommate variants to be "real variants", as the frequen
 ### Epitope Analysis  
 Simply reading the [epitope paper given to us](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4482133/), I manually scanned the results section to see which residues in the epitopes were implicated with antigenic variation, and whether any of these residues coincided with residues from the roommate's rare variants.  
 
-## Results  
-This section should include the results of your data processing and data analysis, and may include tables with read lengths, pictures of quality distributions, or tables of gene names for examples. In the text, briefly restate how you got the results in full sentences, but in less detail than the methods, before you say what the results are (ie ‘reads were mapped to the reference and scanned to identify positions that likely contained mutations. We found….’). Refer to tables and figures by number, and include a brief descriptive title for each. Be sure to include any results specifically requested in the lab project tutorial. The results section should be as objective as possible, so please refrain from interpreting the meaning or significance here. It should be just the facts.  
+## Results    
+
 First, we will look at the mappability for each of the four samples (Table 1).  
 
 ### Table 1. Reads Mapped
@@ -91,7 +91,12 @@ G1521A |CTG>CTA | Leu507Leu | synonymous | rare
 Finally, we turn to Munoz and Deem to determine whether these residues are located in epitopes of hemagglutinin. Of the residues in Table 3 (column 3), only **residues 165 and 304** were in epitopes B and C (respectively). Because reside 165 is synonymous and 304 is missense, it is likely that only 304 is implicated in this case, and **a mutation in epitope C is a factor in my getting the flu**.  
 
 ## Discussion
-In 2-3 paragraphs, explain what you think the results mean, and why you are interpreting them this way. If you encountered any problems, or answered questions, discuss them and suggest ways to solve them with future experiments or analyses. Also include any information specifically requested in the tutorial.
+In 2-3 paragraphs, explain what you think the results mean, and why you are interpreting them this way. If you encountered any problems, or answered questions, discuss them and suggest ways to solve them with future experiments or analyses. Also include any information specifically requested in the tutorial.  
+
+1. How you decided which mutations were most likely to be real.  
+2. Explain how you think you were able to get the flu from your roommate, even though you had received the flu vaccine.  
+3. Also in the discussion section, propose three additional ways to control for error in deep sequencing experiments like this, and explain why error control is important for accurately identifying and quantitating rare variants. Our approach was pretty quick and simple; there are many more sophisticated methods out there, some of which we talked about in class. You can suggest laboratory steps to minimize errors in the first place, bioinformatics steps you could implement on our data, or existing software. For each suggestion, include a sentence or two explaining how it would reduce error.  
+4. Problems Encountered & Questions answered.  
 
 ## Citations
 You can use any commonly used format you like, but be consistent. Lab reports will be submitted via turnitin to check for plagiarism, so be sure to cite other people’s ideas, and put everything in your own words (paraphrasing) if you aren’t using direct quotes.
