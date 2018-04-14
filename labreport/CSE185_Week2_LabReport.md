@@ -66,6 +66,9 @@ SRR1705858|256586|256500
 SRR1705859|233327|233251  
 SRR1705860|249964|249888  
 
+Because each file has roughly the same amount of reads, we can choose one to roughly determine average coverage.
+(249964 reads * 151 bp/read) / (23*70 + 55 bp) = 22669x coverage, where we assume each read has 151 bp and the reference genome is (23*70 + 55) = 1665 bp long.  
+
 For each control file, we can determine the error rate by calculating the average/stdev of all the variant allele frequencies (Table 2).  
 
 ### Table 2. Control Sample Stats  
@@ -101,7 +104,7 @@ Finally, we turn to Munoz and Deem to determine whether these residues are locat
 
 ### Interpreting Results  
 
-In Table 1, we see that all our sampes have largely the same number of reads, as well as high mappability. Both of these factors will help mitigate errors in terms of bias. Table 2 indicates that all our controls have an error rate of roughly 0.25%, with standard deviation rate of roughly 0.07%. Because all these error rates are nearly the same, we interpret the roommate data by subsetting only variants with frequency significantly higher than one of these error rates. Table 3 shows our final list of all the roommate variants we believe are significant, but because the only regions of the virus that are specific to immune system response are the epitope regions, we would like to further subset this list to those mutations are involved in antigenic variation, which we do in the epitope anlaysis component of our results.  
+In Table 1, we see that all our sampes have largely the same number of reads, as well as high mappability and deep coverage. These factors will help mitigate errors in terms of bias. Table 2 indicates that all our controls have an error rate of roughly 0.25%, with standard deviation rate of roughly 0.07%. Because all these error rates are nearly the same, we interpret the roommate data by subsetting only variants with frequency significantly higher than one of these error rates. Table 3 shows our final list of all the roommate variants we believe are significant, but because the only regions of the virus that are specific to immune system response are the epitope regions, we would like to further subset this list to those mutations are involved in antigenic variation, which we do in the epitope anlaysis component of our results.  
 
 ### How did you decide which mutations were most likely to be real?  
 
