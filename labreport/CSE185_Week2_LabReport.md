@@ -136,7 +136,7 @@ It seems that our control files have a relatively high sequencing error rate (0.
 
 For dataset roommate, I would calculate actual average coverage by first putting all the mapped reads into a text file, and then determining the number of bp in that file, and finally dividing that number by 1665, the number of bp in the reference file.  
 
-To put all the mapped reads into a text file, I would run `samtools view -F 4 roommate.bam | cut -f 10 > roommateMappedReads.txt`, which filters the reads in the roommate.bam file to those that are mapped, then grabs the 10th column (the sequence) and puts it in the text file roommateMappedReads.txt. Then I would write a python script to count the total number of characters (excluding new line chars), and output that result / 1665.  
+To put all the mapped reads into a text file, I would run `samtools view -F 4 roommate.bam | cut -f 10 > roommateMappedReads.txt`, which filters the reads in the roommate.bam file to those that are mapped, then grabs the 10th column (the sequence) and puts it in the text file roommateMappedReads.txt. `wc -c roommateMappedReads.txt` returns the total number of characters in the file, and `wc -l roommateMappedReads.txt` returns the total number of lines (in other words, the total number of newline characters). Subtracting the number of new line characters from the total number of characters returns 42376135 - 283672 = 42092463 bp which, divided by 1665, the length of the reference genome, gives a final coverage of **25280x**.
 
 ## Citations
 1. Cermak, Vladimir. “WebDSV.” WebDSV - Free Online DNA Sequence Editor, www.molbiotools.com/WebDSV/index.html.  
