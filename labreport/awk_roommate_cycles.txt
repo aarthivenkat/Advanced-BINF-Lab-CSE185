@@ -1,1 +1,0 @@
-cat roommate.fastq | awk 'NR%4==0 {print length}' | sort -n | uniq -c
