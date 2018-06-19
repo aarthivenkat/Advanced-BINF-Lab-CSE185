@@ -1,0 +1,5 @@
+x=4; for i in *.fq.gz; do y="$(zcat $i | wc -l)"; z="$(zcat $i | head -n 2 | tail -n 1 | wc -c)"; echo $i $((y / x)) $z; done
+for i in /home/linux/ieng6/cs185s/public/week4/*.fq.gz; do fastqc -o ./labreport/ $i; done
+for i in *_chr5.bam; do x="$(samtools view $i -H | grep "^@PG")"; echo $x; done
+for i in FL_Rep1 FL_Rep2 HL_Rep1 HL_Rep2 MB_Rep1 MB_Rep2; do for j in FL_Rep1 FL_Rep2 HL_Rep1 HL_Rep2 MB_Rep1 MB_Rep2; do k="$(paste $i/abundance.tsv $j/abundance.tsv | cut -f 5,10 | grep -v tpm | awk '(!($1==0 && $2==0))' | datamash ppearson 1:2)"; echo $i $j $k; done; done
+paste FL_Rep1/abundance.tsv FL_Rep2/abundance.tsv HL_Rep1/abundance.tsv HL_Rep2/abundance.tsv MB_Rep1/abundance.tsv MB_Rep2/abundance.tsv | cut -f 5,10,15,20,25,30 | grep -v tpm | awk '(!($1==0 && $2==0 && $3==0 && $4==0 && $5==0 && $6==0))' > tpm_matrix.txt

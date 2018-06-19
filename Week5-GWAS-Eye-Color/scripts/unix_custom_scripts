@@ -1,0 +1,4 @@
+zcat lab5_pred_eyecolor.vcf.gz | grep -v "^#" | awk '{print $8}' | awk -F '[ ;]' '{print $11}' | grep "^NS"  
+bcftools query -l lab5_pred_eyecolor.vcf.gz | datamash transpose | awk '{print "ID\t"$0"\t"}' > lab5_pred_eyecolor.tab
+bcftools query -f "%ID\t[%TGT\t]\n" final/lab5_pred_eyecolor.vcf.gz | sed 's/|//g' >> lab5_pred_eyecolor.tab
+cat lab5_pred_eyecolor_transpose.tab | awk '{print $1, $5, $4, $3, $6, $2, $7}' > temp_lab5_pred_eyecolor_transpose.tab

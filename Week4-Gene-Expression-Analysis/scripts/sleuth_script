@@ -1,0 +1,24 @@
+library("sleuth")
+
+# Set up the paths to our kallisto results
+sample_id = c("FL_Rep1","FL_Rep2","HL_Rep1","HL_Rep2","MB_Rep1","MB_Rep2")
+kal_dirs = file.path(sample_id)
+
+# Load metadata
+s2c = read.table(file.path("/home/linux/ieng6/cs185s/public/week4/exp_info.txt"), header = TRUE, stringsAsFactors=FALSE)
+s2c = dplyr::mutate(s2c, path = kal_dirs)
+
+# Create sleuth object
+so = sleuth_prep(s2c, extra_bootstrap_summary = TRUE)
+
+# Fit each model and test
+so = sleuth_fit(so, ~condition, 'full')
+so = sleuth_fit(so, ~1, 'reduced')
+so = sleuth_lrt(so, 'reduced', 'full')
+
+# Get output, write results to file
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
+# Note, you may need to edit the output path below if your $HOME
+# directory is not the same as your CSE185 course directory
+write.table(sleuth_significant, "/home/linux/ieng6/cs185s/avenkat/week4/sleuth_results.tab", sep="\t", quote=FALSE)
