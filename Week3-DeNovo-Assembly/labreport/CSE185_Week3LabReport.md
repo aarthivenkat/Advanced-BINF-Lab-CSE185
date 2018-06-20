@@ -28,30 +28,30 @@ Our last attempt at improving the assembly is closing the gaps between contigs u
 We started our analysis by looking at raw files and running FastQC. The short-insert files had 1557594 reads each, and the long-insert files had 1111432 reads each. Figures 1,2,3,4 indicate the per base quality assessment for raw files short insert size 1 and 2 and long insert size 1 and 2, respectively.  
 
 #### Figure 1. FastQC Per Base Quality, Short-Insert 1  
-![1](https://github.com/cse185-sp18/cse185-week3-aarthivenkat/blob/master/labreport/frag_1_fastqc.PNG)
+![1](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week3-DeNovo-Assembly/labreport/frag_1_fastqc.PNG)
 
 #### Figure 2. FastQC Per Base Quality, Short-Insert 2
-![2](https://github.com/cse185-sp18/cse185-week3-aarthivenkat/blob/master/labreport/frag_2_fastqc.PNG)  
+![2](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week3-DeNovo-Assembly/labreport/frag_2_fastqc.PNG)  
 
 #### Figure 3. FastQC Per Base Quality, Long-Insert 1  
-![3](https://github.com/cse185-sp18/cse185-week3-aarthivenkat/blob/master/labreport/short_jump_1_fastqc.PNG)
+![3](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week3-DeNovo-Assembly/labreport/short_jump_1_fastqc.PNG)
 
 #### Figure 4. FastQC Per Base Quality, Long-Insert 2  
-![4](https://github.com/cse185-sp18/cse185-week3-aarthivenkat/blob/master/labreport/short_jump_2_fastqc.PNG)  
+![4](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week3-DeNovo-Assembly/labreport/short_jump_2_fastqc.PNG)  
 
 ### Kmer Histogram Plots Before and After Correction  
 
 We then used Jellyfish to evaluate sequencing error prevalence. We plot the number of times a 31-mer occurs on the x-axis, and number of 31-mers for each count on the y-axis for the short-insert library. The histogram plot before correction is shown in Figure 5.  
 
 #### Figure 5. Jellyfish Histogram Before Correction  
-![5](https://github.com/cse185-sp18/cse185-week3-aarthivenkat/blob/master/labreport/frag_1_31.pdf)  
+![5](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week3-DeNovo-Assembly/labreport/frag_1_31.pdf)  
 
 The bin that corresponds to the initial valley point is bin 5, with 34039 kmers fitting that category.  
 
 After correction of the short-insert files with SOAPdenovo2 modules, we replot the histogram, shown in Figure 6.  
 
 #### Figure 6. Jellyfish Histogram After Correction  
-![6](https://github.com/cse185-sp18/cse185-week3-aarthivenkat/blob/master/labreport/frag_1_31corrected.pdf)  
+![6](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week3-DeNovo-Assembly/labreport/frag_1_31corrected.pdf)  
 
 We go on to evaluate the corrected data files. Both short-insert corrected files had 1054393 reads. The new valley point is the bin 2, with frequency 15515. The peak of the graph is the bin 14, with frequency 142225. The corrected files 1 and 2 had average read length of 95.631 and 93.333 respectively, and total number of base pairs 100832704 and 98410110 respectively. Evaluating the genome size using the first file, we estimate it is 5244177 base pairs, approximately.  
 
@@ -73,10 +73,10 @@ After Gap Filling on Untrimmed|284|259114|128193
 Using class data, we plotted max contig length versus kmer length in Figure 8, and N50 score versus kmer length in Figure 9.  
 
 #### Figure 8. Max contig length versus Kmer length  
-![8](https://github.com/cse185-sp18/cse185-week3-aarthivenkat/blob/master/labreport/max_contig_vs_kmer_length.PNG)  
+![8](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week3-DeNovo-Assembly/labreport/max_contig_vs_kmer_length.PNG)  
 
 #### Figure 9. N50 versus Kmer length  
-![9](https://github.com/cse185-sp18/cse185-week3-aarthivenkat/blob/master/labreport/n50_vs_kmer_length.PNG)  
+![9](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week3-DeNovo-Assembly/labreport/n50_vs_kmer_length.PNG)  
 
 ### QUAST Evaluation  
 
