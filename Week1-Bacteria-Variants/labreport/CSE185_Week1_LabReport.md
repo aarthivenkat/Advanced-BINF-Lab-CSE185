@@ -38,13 +38,13 @@ Using FastQC, we were able to visualize the per base sequence quality in HTML. O
 ### Figure 2. Per Bases Sequence Quality Before and After Trimming  
 
 #### amp_res_1_before_trim  
-![R2a](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/tree/master/Week1-Bacteria-Variants/labreport/res1_beforeTrim.PNG)
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/tree/master/Week1-Bacteria-Variants/labreport/res1_beforeTrim.PNG)
 #### amp_res_2_before_trim  
-![R2b](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/tree/master/Week1-Bacteria-Variants/labreport/res2_beforeTrim.PNG)
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/tree/master/Week1-Bacteria-Variants/labreport/res2_beforeTrim.PNG)
 #### amp_res_1_after_trim  
-![R2c](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/tree/master/Week1-Bacteria-Variants/labreport/res1_afterTrim.PNG)
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/tree/master/Week1-Bacteria-Variants/labreport/res1_afterTrim.PNG)
 #### amp_res_2_after_trim  
-![R2d](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/tree/master/Week1-Bacteria-Variants/labreport/res2_afterTrim.PNG)
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/tree/master/Week1-Bacteria-Variants/labreport/res2_afterTrim.PNG)
 
 Evidently, trimming the ends of the sequences was able to improve per base sequence quality, allowing us to move forward with subsequent analyses.  
 
