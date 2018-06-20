@@ -21,18 +21,18 @@ The data from the original paper is paired-end RNA-Seq data from Illumina HiSeq 
 For the sake of this project, I worked only with the resistant strain, comparing reads from PfalDd2 and PfalDd2_CQ (referred to as Dd2 and Dd2_CQ in this paper). I downsampled the data to the first 1.5 million reads of each paired-end file. I then ran [**FastQC (v0.11.7)**](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)<sup>[**6**]</sup> on every FASTQ file. 
 
 ### Transcript Quantification  
-The next step of my analysis involved transcription quantification through an alignment-independent pipeline. I opted to use [**Kallisto (v0.44.0)**](https://pachterlab.github.io/kallisto/about)<sup>[**7**]</sup>, first indexing with default parameters the *Plasmodium falciparum* transcriptome obtained from [**PlasmoDB (Release 37)**](http://plasmodb.org/plasmo/)<sup>[**8**]</sup> through this [script](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/scripts/fasta.sh). Then I ran kallisto quant with the index, 3 threads and 100 bootstrap samples. I invoked multithreading to increase the speed, and used 100 bootstrap samples as a way to sample small sets from a larger dataset and develop reliable statistics about transcript abundance.  
+The next step of my analysis involved transcription quantification through an alignment-independent pipeline. I opted to use [**Kallisto (v0.44.0)**](https://pachterlab.github.io/kallisto/about)<sup>[**7**]</sup>, first indexing with default parameters the *Plasmodium falciparum* transcriptome obtained from [**PlasmoDB (Release 37)**](http://plasmodb.org/plasmo/)<sup>[**8**]</sup> through this [script](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/scripts/fasta.sh). Then I ran kallisto quant with the index, 3 threads and 100 bootstrap samples. I invoked multithreading to increase the speed, and used 100 bootstrap samples as a way to sample small sets from a larger dataset and develop reliable statistics about transcript abundance.  
 
-As an additional test, I compared the percentage of reads pseudoaligned and compared it to the percentage of reads aligned with Tophat in the original paper's analysis. I then performed pairwise correlation analysis using a custom [script](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/scripts/correlation.sh). In the custom script, I pasted together the abudance.tsv output from kallisto, extracted just the tpm values, removed the "tpm" header, extracted only values where both columns are non-zero, and ran a pearson correlation test.  
+As an additional test, I compared the percentage of reads pseudoaligned and compared it to the percentage of reads aligned with Tophat in the original paper's analysis. I then performed pairwise correlation analysis using a custom [script](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/scripts/correlation.sh). In the custom script, I pasted together the abudance.tsv output from kallisto, extracted just the tpm values, removed the "tpm" header, extracted only values where both columns are non-zero, and ran a pearson correlation test.  
 
 ### Differential Expression Analysis  
-Following Kallisto, I used a [script](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/scripts/sleuth) invoking [**Sleuth**](https://pachterlab.github.io/sleuth/about)<sup>[**9**]</sup>, which interprets the kallisto output, writes the significant differentially expressed transcripts to a tab-delimited file. The program required I use replicates, so I created pseudoreplicates by copying the sample as a separate library. The False Discovery Threshold is 0.05. I then determined the number of significant transcripts and created several visualizations of transcript abundance through the sleuth_live interactive feature.  
+Following Kallisto, I used a [script](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/scripts/sleuth) invoking [**Sleuth**](https://pachterlab.github.io/sleuth/about)<sup>[**9**]</sup>, which interprets the kallisto output, writes the significant differentially expressed transcripts to a tab-delimited file. The program required I use replicates, so I created pseudoreplicates by copying the sample as a separate library. The False Discovery Threshold is 0.05. I then determined the number of significant transcripts and created several visualizations of transcript abundance through the sleuth_live interactive feature.  
 
 ### Gene Ontology  
 To better functionally interpret the significant transcripts, I turned to the [**PlasmoDB** Gene Identification Feature](http://plasmodb.org/plasmo/showQuestion.do?questionFullName=GeneQuestions.GeneByLocusTag), where I searched the top 10 transcript IDs from my output, resulting in a summary list of the genes and gene ontology terms. I then invoked [**REVIGO (Jan 2017 release)**](http://revigo.irb.hr/)<sup>[**10**]</sup>, a new tool to the class which reduces the gene ontology list by summarizing redundant terms and visualizing the list in a word cloud to better understand function.  
 
 ### Comparison to Original Paper through Gene Ontology 
-In order to compare my results to the downstream results from the original paper, I ran a [script](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/scripts/downsample.sh) to downsample the original paper's Cuffdiff output to just Dd2 and Dd2_CQ comparisons with significance at the same threshold, q<=0.05. I then determined the number of transcripts, and put all the transcripts into PlasmoDB to study gene ontology. When that query returned few results, I put the list of genes the Cuffdiff output implicated into PlasmoDB, and returned a summary list of the genes and gene ontology terms as before. Finally, I used REVIGO on the GO terms to make a word cloud, so that I could compare the word clouds between my analysis and the paper's.
+In order to compare my results to the downstream results from the original paper, I ran a [script](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/scripts/downsample.sh) to downsample the original paper's Cuffdiff output to just Dd2 and Dd2_CQ comparisons with significance at the same threshold, q<=0.05. I then determined the number of transcripts, and put all the transcripts into PlasmoDB to study gene ontology. When that query returned few results, I put the list of genes the Cuffdiff output implicated into PlasmoDB, and returned a summary list of the genes and gene ontology terms as before. Finally, I used REVIGO on the GO terms to make a word cloud, so that I could compare the word clouds between my analysis and the paper's.
 
 ## Results  
 
@@ -41,17 +41,17 @@ After running FastQC, I was able to produce the following plots in **Figure 1** 
 
 #### Figure 1. FastQC Output  
 **Dd2_1**  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/fastqc/Dd2_1_quality.PNG)  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/fastqc/Dd2_1_content.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/fastqc/Dd2_1_quality.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/fastqc/Dd2_1_content.PNG)  
 **Dd2_2**  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/fastqc/Dd2_2_quality.PNG)  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/fastqc/Dd2_1_content.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/fastqc/Dd2_2_quality.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/fastqc/Dd2_1_content.PNG)  
 **Dd2_CQ_1**  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/fastqc/Dd2CQ_1_quality.PNG)  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/fastqc/Dd2CQ_1_content.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/fastqc/Dd2CQ_1_quality.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/fastqc/Dd2CQ_1_content.PNG)  
 **Dd2_CQ_2**  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/fastqc/Dd2CQ_1_quality.PNG)  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/fastqc/Dd2CQ_1_content.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/fastqc/Dd2CQ_1_quality.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/fastqc/Dd2CQ_1_content.PNG)  
 
 ### Kallisto Alignment & Correlation Tests  
 After running Kallisto Quant to quantify transcript abundance, I could calculate the number of reads pseudoaligned and compare that to the original paper's alignment statistics in **Table 2**. The alignments rates are comparable and high.
@@ -68,46 +68,46 @@ The concordance of the two samples is **0.483182958**.
 After running Sleuth, the number of significantly differentially expressed transcripts was **4784**, whereas for the original paper it was **29** at the same significance threshold. Through the sleuth_live interactive visualization feature, I could visualize a table of all the differentially expressed transcripts, shown in **Table 3**. After identifying highly differential transcripts, I visualized box plots of abundance differences for the first three in **Figure 4**, as well as a heatmap of the first 10 transcripts in **Figure 5**. Finally, I took advantage of the interface to look at summaries of Kallisto output, namely the abundance distributions and fragment length distributions for the two samples (**Figure 6**, **Figure 7**, respectively).  
 
 #### Table 3. Table of Differentially Expressed Transcripts  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/sleuth/table.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/sleuth/table.PNG)  
 
 #### Figure 4. Box Plots of Abundance for Top Three DE Transcripts  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/sleuth/transcript_abundances_1.PNG)  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/sleuth/transcript_abundances_2.PNG)  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/sleuth/transcript_abundances_3.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/sleuth/transcript_abundances_1.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/sleuth/transcript_abundances_2.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/sleuth/transcript_abundances_3.PNG)  
 
 #### Figure 5. Heatmap of Top Ten DE Transcripts  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/sleuth/transcript_abundances_heatmap.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/sleuth/transcript_abundances_heatmap.PNG)  
 
 #### Figure 6. Abundance Distributions from Two Samples  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/sleuth/abundance_distribution.PNG)  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/sleuth/frag_length_distribution_87.PNG)  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/sleuth/frag_length_distribution_88.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/sleuth/abundance_distribution.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/sleuth/frag_length_distribution_87.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/sleuth/frag_length_distribution_88.PNG)  
 
 ### Gene Ontology  
 From PlasmoDB, I was able to get a summarized list of the top ten transcripts and their descriptions (**Table 7**), as well as perform a GO analysis and get a summarized list of the gene ontology (**Table 8**). I could then utilize REVIGO to form a word cloud from the GO IDs (**Figure 9**).  
 
 #### Table 7. Transcript Descriptions  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/GO/my_gene_list.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/GO/my_gene_list.PNG)  
 
 #### Table 8. Gene Ontology  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/GO/my_gene_ontology.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/GO/my_gene_ontology.PNG)  
 
 #### Figure 9. Word Cloud  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/GO/my_revigo_wordcloud.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/GO/my_revigo_wordcloud.PNG)  
 
 In order to compare to original paper's results, I performed a similar analysis with their differentially expressed transcripts output, located from the GEO. I first used their 29 significantly DE transcripts as input, getting three hits from PlasmoDB (**Table 10**). I then used the genes associated with those transcritps as input, getting seven hits this time (**Table 11**). From this second list, I performed GO analysis and got a summarized list of the gene ontology (**Table 12**). Finally, I again used REVIGO to form a word cloud from the GO IDs (**Figure 13**).  
 
 #### Table 10. Original Paper Transcript Descriptions - Transcript ID Input  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/GO/original_gene_list.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/GO/original_gene_list.PNG)  
 
 #### Table 11. Original Paper Transcript Descriptions - Gene ID Input  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/GO/original_gene_list_geneidsearch.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/GO/original_gene_list_geneidsearch.PNG)  
 
 #### Table 12. Original Paper Gene Ontology  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/GO/original_gene_ontology.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/GO/original_gene_ontology.PNG)  
 
 #### Figure 13. Original Paper Word Cloud  
-![](https://github.com/cse185-sp18/cse185-final-project-aarthivenkat/blob/master/results/GO/original_revigo_wordcloud.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Final-Malaria-Gene-Expression-Analysis/results/GO/original_revigo_wordcloud.PNG)  
 
 ## Discussion 
 ### Analysis of Gene Ontology from Kallisto-Sleuth Output  
