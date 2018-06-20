@@ -16,7 +16,7 @@ The question of which genomic regions are implicated in limb development is a cr
 
 ### RNA-seq datasets  
 
-I am working with chr5 RNA-seq data from 3 tissues and two replicates per tissue. The three tissues are from a developing mouse: hindlimb (HL), forelimb (FL), and midbrain (MB). Each replicate has two FASTQ files associated with it, indicating that the datasets are paired. I determined the number of reads and read length by running a [custom script](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/scripts/custom_scripts) (line 1); the results are in **Table 1**. After inspecting the files, I ran [**FastQC (v0.11.7)**](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)<sup>[**1**]</sup> on every fq.gz file using another [custom script](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/scripts/custom_scripts) (line 2). Every file failed only one module: **Per Base Sequence Content**. This is because the difference between A and T or G and C was greater than 20% within the first 12 bases. This error was elicited by biased fragmentation, due to the generation of the libraries from ligation of random hexamers. These libraries thus have an intrinsic selection bias in the positions at which reads start. According to the [**FastQC documentation**](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/4%20Per%20Base%20Sequence%20Content.html), this does not represent biased individual sequences, and while nearly all RNA-Seq libraries will fail this module, it is not a problem that can be fixed through processsing, and it does not affect downstream analysis. Finally, from the BAMfile header of reads aligned for us, we can interpret using a [custom script](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/scripts/custom_scripts) (line 3) that the reference genome build used throughout the lab is mm10 for Mouse.  
+I am working with chr5 RNA-seq data from 3 tissues and two replicates per tissue. The three tissues are from a developing mouse: hindlimb (HL), forelimb (FL), and midbrain (MB). Each replicate has two FASTQ files associated with it, indicating that the datasets are paired. I determined the number of reads and read length by running a [custom script](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/scripts/custom_scripts) (line 1); the results are in **Table 1**. After inspecting the files, I ran [**FastQC (v0.11.7)**](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)<sup>[**1**]</sup> on every fq.gz file using another [custom script](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/scripts/custom_scripts) (line 2). Every file failed only one module: **Per Base Sequence Content**. This is because the difference between A and T or G and C was greater than 20% within the first 12 bases. This error was elicited by biased fragmentation, due to the generation of the libraries from ligation of random hexamers. These libraries thus have an intrinsic selection bias in the positions at which reads start. According to the [**FastQC documentation**](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/4%20Per%20Base%20Sequence%20Content.html), this does not represent biased individual sequences, and while nearly all RNA-Seq libraries will fail this module, it is not a problem that can be fixed through processsing, and it does not affect downstream analysis. Finally, from the BAMfile header of reads aligned for us, we can interpret using a [custom script](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/scripts/custom_scripts) (line 3) that the reference genome build used throughout the lab is mm10 for Mouse.  
 
 #### Table 1. Number of Reads and Read Length for each Dataset  
 File|NumReads|ReadLength  
@@ -36,7 +36,7 @@ MB_Rep2_chr5_2.fq.gz|3413939|50
 
 ### RNA-seq analysis  
 
-Now, we move towards transcript abundance quantification with [**Kallisto (v0.44.0)**](https://pachterlab.github.io/kallisto/about)<sup>[**6**]</sup>. Using a [custom script](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/scripts/run_kallisto.sh), we run kallisto quant with a GTF file with transcriptome information and a kallisto index, as well as 3 threads and 100 bootstrap samples. We invoke multithreading to increase the speed, and we use 100 bootstrap samples as a way to sample small sets from a larger dataset and develop reliable statistics about transcript abundance. Then, we complete pairwise correlation analysis using a [custom script](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/scripts/custom_scripts) (line 4). In the custom script, we paste together the abudance.tsv output from kallisto, extract just the tpm values, remove the "tpm" header, extract only values where both columns are non-zero, and run a pearson correlation test. Finally, we used a [script](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/scripts/sleuth_script) invoking [**Sleuth**](https://pachterlab.github.io/sleuth/about)<sup>[**11**]</sup>, which interprets the kallisto output and writes the significant differentially expressed transcripts to a tab-delimited file. The False Discovery Threshold is 0.05.  
+Now, we move towards transcript abundance quantification with [**Kallisto (v0.44.0)**](https://pachterlab.github.io/kallisto/about)<sup>[**6**]</sup>. Using a [custom script](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/scripts/run_kallisto.sh), we run kallisto quant with a GTF file with transcriptome information and a kallisto index, as well as 3 threads and 100 bootstrap samples. We invoke multithreading to increase the speed, and we use 100 bootstrap samples as a way to sample small sets from a larger dataset and develop reliable statistics about transcript abundance. Then, we complete pairwise correlation analysis using a [custom script](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/scripts/custom_scripts) (line 4). In the custom script, we paste together the abudance.tsv output from kallisto, extract just the tpm values, remove the "tpm" header, extract only values where both columns are non-zero, and run a pearson correlation test. Finally, we used a [script](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/scripts/sleuth_script) invoking [**Sleuth**](https://pachterlab.github.io/sleuth/about)<sup>[**11**]</sup>, which interprets the kallisto output and writes the significant differentially expressed transcripts to a tab-delimited file. The False Discovery Threshold is 0.05.  
 
 ### Enhancer analyses    
 
@@ -49,7 +49,7 @@ On [**IGV (v2.4)**](http://software.broadinstitute.org/software/igv/)<sup>[**2**
 The replicates were highly concordant, with correlation rate of 0.995. All replicates were more concordant with each other than with other tissues. Regarding comparisons between tissues, FL and HL had a correlation rate of 0.959, whereas FL and MB 0.954 and HL and MB 0.931. Therefore, FL and HL were the most similar, and HL and MB the most different. Figure 2 highlights the correlation analysis for each of the tissues and replicates.  
 
 #### Figure 2. Pairwise Analysis Across Tissues and Replicates  
-![correlation analysis](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/correlation.PNG)  
+![correlation analysis](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/correlation.PNG)  
 
 Regarding differentially expressed transcripts, I found 1940 significant transcripts. The top 10 genes and their names (collated from a given [**Ensembl mouse index**]( http://uswest.ensembl.org/Mus_musculus/Info/Index)<sup>[**8**]</sup>) are listed in Table 3 below. For the first top 5 hits, I navigated to that gene in IGV and took screenshots, represented in Figure 4.  
 
@@ -69,15 +69,15 @@ rank|target_id|gene name
 
 #### Figure 4. Top 5 IGV Examples  
 ### Rp121  
-![Rpl21](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/labreport/Rpl21.PNG)  
+![Rpl21](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/labreport/Rpl21.PNG)  
 ### Shh  
-![Shh](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/labreport/Shh.PNG)  
+![Shh](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/labreport/Shh.PNG)  
 ### Uchl1  
-![Uchl1](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/labreport/Uchl1.PNG)  
+![Uchl1](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/labreport/Uchl1.PNG)  
 ### Sparcl1  
-![Sparcl1](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/labreport/Sparcl1.PNG)  
+![Sparcl1](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/labreport/Sparcl1.PNG)  
 ### Parm1  
-![Parm1](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/labreport/Parm1.PNG)  
+![Parm1](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/labreport/Parm1.PNG)  
 
 ### Enhancer analysis  
 
@@ -86,7 +86,7 @@ First, we analyze the general signal of the histone modifications and the PhyloP
 Next, we look specifically at the ZRS region, which we know is implicated in regulation of *Shh* and potentially limb development. I visualized the results in Figure 5 and quantified them in Table 6. For FL and HL, the methylation levels were consistently high and the acetylation levels were consistently low, whereas for ML both methylation and acetylation were consistently low. The Phylop score is consistently high throughout this region, indicating that it is highly conserved.  
 
 #### Figure 5. ZRS Region RNA-Seq, Histone Modifications, and PhyloP Scores  
-![region of interest](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/labreport/regionOfInterest.PNG)  
+![region of interest](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/labreport/regionOfInterest.PNG)  
 
 #### Table 6. Quantification of Modification Scores  
 Modification | Score Range | Scale  
@@ -101,8 +101,8 @@ ML-H3K2ac|0.3 - 0.5|0 - 12.4
 Finally, we can analyze the MSA results from the outputted HTML file. I found two regions where there are missing sequences for snakes and conserved present sequences for all other organisms analyzed. These two regions are represented in Figure 7, where the last four sequences are the four snake organisms analyzed, and the other sequences are non-snakes.  
 
 #### Figure 7. MSA Visualization of Absent Sequences in Snakes Exclusively  
-![1](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/labreport/zrs_1.PNG)  
-![2](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/labreport/zrs_2.PNG)  
+![1](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/labreport/zrs_1.PNG)  
+![2](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/labreport/zrs_2.PNG)  
 
 ### Extra Credit  
 
@@ -111,14 +111,14 @@ Finally, we can analyze the MSA results from the outputted HTML file. I found tw
 To get all the TPM values, such that each sample is a column and each row is a transcript, we run a [custom script](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/scripts/custom_scripts) (line 5). Then, we run a [python script](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/scripts/ec_1.py) to create a clustermap, which clusters the matrix by row and column. This cluster map is visualized in Figure 8 below. FL_Rep1 and FL_Rep2 tend to cluster, and MB_Rep1 and MB_Rep2 tend to cluster, whereas HL_Rep2 tends more towards clustering with MB compared to HL_Rep1. There are clear clusters of up vs. down regulated genes in each tissue, as in the clustermap below red represents up-regulation and blue represents down-regulation. It is evident that the red and the blue have separated into clear clusters.  
 
 #### Figure 8. Clustermap of Transcripts and Samples  
-![clustermap](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/labreport/tpm_clustermap.png)  
+![clustermap](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/labreport/tpm_clustermap.png)  
 
 2. Perform gene ontology (GO) analysis or gene-set enrichment analysis (GSEA) on the top set of genes. There are many online tools for doing this (e.g. DAVID, Panther). What types of biological processes are enriched in differentially expressed genes? Inlude a table in your results section.  
 
 Using [**DAVID Functional Annotation Tool (v6.8)**](https://david.ncifcrf.gov/summary.jsp)<sup>[**10**]</sup>, I performed gene-set enrichment analysis on the top 10 differentially-expressed genes and received the results in Table 9. The biological processes enriched in these genes involve structure development and cell proliferation, as well as surface proteins such as lipoproteins, glycoproteins, and membrane proteins.  
 
 #### Table 9. Functional Annotation of Top 10 Differentially Expressed Genes  
-![funcannotation](https://github.com/cse185-sp18/cse185-week4-aarthivenkat/blob/master/labreport/Functional_Annotation_Chart.PNG)  
+![funcannotation](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week4-Gene-Expression-Analysis/labreport/Functional_Annotation_Chart.PNG)  
 
 ## Discussion  
 
