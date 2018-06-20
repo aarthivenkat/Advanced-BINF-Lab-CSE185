@@ -82,7 +82,7 @@ The top scoring sequence is PQELLSQLVQ. My guess was IAGPPSGGPAIPEQSMGK. This is
 **Hypothesize why some peaks are missing from our spectrum file.** (1 pt)  
 
 Correct:  
-![](https://github.com/cse185-sp18/cse185-week6-aarthivenkat/blob/master/FragIon.PNG)  
+![](https://github.com/aarthivenkat/Advanced-BINF-Lab-CSE185/blob/master/Week6-Proteomics/FragIon.PNG)  
 
 I can infer that the procedure against which the mass spec experiment requires various calibrations to optimize the data, such as during the separation before MS and with the MS instrument. Further, perhaps the MS instrument itself was at low resolution, or, because peaks are defined by their relative intensity to the base (largest) peak, some peaks may have had a high intensity but a low relative intensity.  
 
